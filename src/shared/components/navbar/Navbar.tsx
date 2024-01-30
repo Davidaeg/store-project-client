@@ -1,29 +1,40 @@
 import { Menubar } from 'primereact/menubar';
-import { InputText } from 'primereact/inputtext';
 import { MenuItem } from 'primereact/menuitem';
 import { Avatar } from 'primereact/avatar';
+import { useNavigate } from 'react-router-dom';
+
+import './Navbar.styles.css';
 
 export const Navbar = () => {
-  const itemRenderer = (item: MenuItem) => (
-    <a className="flex align-items-center p-menuitem-link">
-      <span className={item.icon} />
-      <span className="mx-2">{item.label}</span>
-    </a>
-  );
+  const navigate = useNavigate();
+  const activeRoute = (routeName: string) => {
+    return window.location.href.includes(routeName) ? 'active' : '';
+  };
 
   const items: MenuItem[] = [
     {
       label: 'Home',
-      icon: 'pi pi-home'
+      icon: 'pi pi-home',
+      command: () => {
+        navigate('/store/home');
+      },
+      className: activeRoute('/store/home')
     },
     {
-      label: 'Features',
-      icon: 'pi pi-star'
+      label: 'Products',
+      icon: 'pi pi-star',
+      command: () => {
+        navigate('/store/products');
+      },
+      className: activeRoute('/store/products')
     },
     {
-      label: 'Contact',
+      label: 'Consulta',
       icon: 'pi pi-envelope',
-      template: itemRenderer
+      command: () => {
+        navigate('/store/consulta');
+      },
+      className: activeRoute('/store/consulta')
     }
   ];
 
@@ -37,11 +48,7 @@ export const Navbar = () => {
   );
   const end = (
     <div className="flex align-items-center gap-2">
-      <InputText
-        placeholder="Search"
-        type="text"
-        className="w-8rem sm:w-auto"
-      />
+      <p>Username</p>
       <Avatar
         image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
         shape="circle"
@@ -50,7 +57,7 @@ export const Navbar = () => {
   );
 
   return (
-    <div className="card" style={{ width: '100vw' }}>
+    <div className="card" style={{ width: '100vw', maxWidth: '100%' }}>
       <Menubar model={items} start={start} end={end} />
     </div>
   );
