@@ -11,13 +11,6 @@ export const Navbar = () => {
     return window.location.href.includes(routeName) ? 'active' : '';
   };
 
-  const itemRenderer = (item: MenuItem) => (
-    <a className="flex align-items-center p-menuitem-link">
-      <span className={item.icon} />
-      <span className="mx-2">{item.label}</span>
-    </a>
-  );
-
   const items: MenuItem[] = [
     {
       label: 'Home',
