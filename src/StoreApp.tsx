@@ -4,11 +4,17 @@ import 'primeicons/primeicons.css'; //icons
 import 'primeflex/primeflex.css'; // flex
 import { PrimeReactProvider } from 'primereact/api';
 import { Layout } from './shared/components/layout/Layout';
+import { AppRouter } from './modules/routing/AppRouter';
+import { BrowserRouter } from 'react-router-dom';
 
 function StoreApp() {
   return (
     <PrimeReactProvider>
-      <Layout />
+      <BrowserRouter>
+        <Layout>
+          <AppRouter />
+        </Layout>
+      </BrowserRouter>
     </PrimeReactProvider>
   );
 }
