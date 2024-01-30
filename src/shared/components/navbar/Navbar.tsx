@@ -64,7 +64,7 @@ export const Navbar = () => {
   );
 
   return (
-    <div className="card" style={{ width: '100vw' }}>
+    <div className="card" style={{ width: '100vw', maxWidth: '100%' }}>
       <Menubar model={items} start={start} end={end} />
     </div>
   );

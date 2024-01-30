@@ -4,10 +4,10 @@ import { Footer } from '../footer/Footer';
 
 export const Layout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <>
+    <div>
       <Navbar />
-      <div className="content">{children}</div>
+      <div>{children}</div>
       <Footer />
-    </>
+    </div>
   );
 };
