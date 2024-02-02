@@ -12,7 +12,6 @@ export const TempView = () => {
       })
       .catch(() => console.log(error));
   }, []);
-
   return (
     <Panel header="Temp View" style={{ height: 'calc(100vh - 100px)' }}>
       <div className="p-d-flex p-jc-center">

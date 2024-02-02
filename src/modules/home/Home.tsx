@@ -1,5 +1,5 @@
 import { Panel } from 'primereact/panel';
-import { Carrousel } from '../../shared/components/carrousel/Carrousel';
+import { Carrousel } from './components/carrousel/Carrousel';
 
 export const Home = () => {
   return (

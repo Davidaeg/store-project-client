@@ -3,4 +3,6 @@ export type Product = {
   name: string;
   description: string;
   price: number;
+  inventoryStatus: 'INSTOCK' | 'LOWSTOCK' | 'OUTOFSTOCK';
+  image: string;
 };
