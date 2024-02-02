@@ -1,4 +1,4 @@
-import { TempHome } from '../tempViews/TempHome';
+import { Home } from '../home/Home';
 import { TempView } from '../tempViews/TempView';
 import { RouteType } from './routes.types';
 
@@ -7,7 +7,7 @@ export const appRoutes: RouteType[] = [
     path: '/home',
     name: 'Home',
     icon: 'pi pi-home',
-    component: TempHome,
+    component: Home,
     layout: 'store'
   },
   {
