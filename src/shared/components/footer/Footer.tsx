@@ -7,9 +7,9 @@ export const Footer = () => {
     <footer className="flex-container">
       <div className="flex-item image-container">
         <img
-          className="img-patitos"
-          src="/images/tres_patitos.webp"
-          alt="tresPatitosLogo"
+          className="img-logo"
+          src="/images/logo.webp"
+          alt="fashion Loft logo"
         />
       </div>
       <Divider layout="vertical" />
@@ -29,7 +29,7 @@ export const Footer = () => {
       <div className="flex-item ">
         <p className="column-title"> Nosotros</p>
         <ul>
-          <li className="li-information ">Correo: trespatitos@patitos.com</li>
+          <li className="li-information ">Correo: contact@fashionLoft.com</li>
           <li className="li-information ">Numero: +506 2233 4455</li>
           <li className="li-information ">
             Ubicacion: 123 Calle Ficticia, Barrio Imaginario, Heredia, Costa
