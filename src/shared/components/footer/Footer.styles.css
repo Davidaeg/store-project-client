@@ -20,50 +20,49 @@
   height: auto;
 }
 
-.imgPatitos {
+.img-patitos {
   display: block;
   width: 100%;
   height: auto;
-  margin-top: 10px; /* Ajusta el margen superior según sea necesario */
+  margin-top: 10px;
 }
 
-.columntitle {
+.column-title {
   font-weight: bold;
   font-size: 1.5em;
   color: #fdb827;
 }
 
-.liInfomracion {
+.li-information {
   margin-top: 3%;
 }
 
-/* Estilos específicos para pantallas más pequeñas */
 @media screen and (max-width: 800px) {
   .flex-container {
     flex-direction: column;
-    align-items: center; /* Centra los elementos verticalmente en pantallas más pequeñas */
+    align-items: center;
   }
 
   .flex-item {
     margin: 0 0 10px 0;
-    text-align: center; /* Centra el texto dentro de los elementos flex-item */
+    text-align: center;
   }
 
   .image-container {
     text-align: center;
   }
 
-  .imgPatitos {
+  .img-patitos {
     margin-top: 10px;
   }
 
-  .columntitle {
+  .column-title {
     font-size: 1.2em;
   }
 
-  .liInfomracion {
+  .li-information {
     margin-top: 1%;
-    list-style: none; /* Elimina los estilos de lista para una presentación más limpia */
-    padding: 0; /* Elimina el relleno de la lista */
+    list-style: none;
+    padding: 0;
   }
 }

@@ -6,11 +6,15 @@ export const Footer = () => {
   return (
     <footer className="flex-container">
       <div className="flex-item image-container">
-        <img className="imgPatitos" src="/images/tres_patitos.png" alt="" />
+        <img
+          className="img-patitos"
+          src="/images/tres_patitos.webp"
+          alt="tresPatitosLogo"
+        />
       </div>
       <Divider layout="vertical" />
       <div className="flex-item">
-        <p className="columntitle">Misión</p>
+        <p className="column-title">Misión</p>
         <p>
           “Ser un proveedor de confianza para los clientes, brindando productos
           de calidad”
@@ -18,16 +22,16 @@ export const Footer = () => {
       </div>
       <Divider layout="vertical" />
       <div className="flex-item ">
-        <p className="columntitle">Visión</p>
+        <p className="column-title">Visión</p>
         <p>“Ser la empresa distribuidora de productos N°1 en Heredia”</p>
       </div>
       <Divider layout="vertical" />
       <div className="flex-item ">
-        <p className="columntitle"> Nosotros</p>
+        <p className="column-title"> Nosotros</p>
         <ul>
-          <li className="liInfomracion">Correo: trespatitos@patitos.com</li>
-          <li className="liInfomracion">Numero: +506 2233 4455</li>
-          <li className="liInfomracion">
+          <li className="li-information ">Correo: trespatitos@patitos.com</li>
+          <li className="li-information ">Numero: +506 2233 4455</li>
+          <li className="li-information ">
             Ubicacion: 123 Calle Ficticia, Barrio Imaginario, Heredia, Costa
             Rica
           </li>
