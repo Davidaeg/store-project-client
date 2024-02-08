@@ -1,42 +1,41 @@
 import './Footer.styles.css';
 
-const footerStyle = {
-  backgroundColor: '#f4f4f4',
-  padding: '20px',
-  color: '#333'
-};
+import { Divider } from 'primereact/divider';
 
 export const Footer = () => {
   return (
-    <footer style={footerStyle}>
-      <div className="footer-content">
-        <div className="contact-info">
-          <h5>Contact Us</h5>
-          <p>Email: info@example.com</p>
-          <p>Phone: +1 123 456 7890</p>
-        </div>
-        <div className="subscribe-button">
-          <button className="rounded-button">Subscribe</button>
-        </div>
+    <footer className="flex-container">
+      <div className="flex-item image-container">
+        <img
+          className="img-patitos"
+          src="/images/tres_patitos.webp"
+          alt="tresPatitosLogo"
+        />
       </div>
-
-      <div className="footer-content">
-        <div className="copyright-info">
-          <p>
-            &copy; {new Date().getFullYear()} Your Company. All rights reserved.
-          </p>
-        </div>
-        <div className="social-icons">
-          <button className="icon-button">
-            <i className="pi pi-facebook"></i>
-          </button>
-          <button className="icon-button">
-            <i className="pi pi-twitter"></i>
-          </button>
-          <button className="icon-button">
-            <i className="pi pi-linkedin"></i>
-          </button>
-        </div>
+      <Divider layout="vertical" />
+      <div className="flex-item">
+        <p className="column-title">Misión</p>
+        <p>
+          “Ser un proveedor de confianza para los clientes, brindando productos
+          de calidad”
+        </p>
+      </div>
+      <Divider layout="vertical" />
+      <div className="flex-item ">
+        <p className="column-title">Visión</p>
+        <p>“Ser la empresa distribuidora de productos N°1 en Heredia”</p>
+      </div>
+      <Divider layout="vertical" />
+      <div className="flex-item ">
+        <p className="column-title"> Nosotros</p>
+        <ul>
+          <li className="li-information ">Correo: trespatitos@patitos.com</li>
+          <li className="li-information ">Numero: +506 2233 4455</li>
+          <li className="li-information ">
+            Ubicacion: 123 Calle Ficticia, Barrio Imaginario, Heredia, Costa
+            Rica
+          </li>
+        </ul>
       </div>
     </footer>
   );
