@@ -35,6 +35,14 @@ export const Navbar = () => {
         navigate('/store/consulta');
       },
       className: activeRoute('/store/consulta')
+    },
+    {
+      label: 'Registrarse',
+      icon: 'pi pi-user',
+      command: () => {
+        navigate('/store/signup');
+      },
+      className: activeRoute('/store/signup')
     }
   ];
 
