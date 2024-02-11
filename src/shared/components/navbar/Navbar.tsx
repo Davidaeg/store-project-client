@@ -39,12 +39,7 @@ export const Navbar = () => {
   ];
 
   const start = (
-    <img
-      alt="logo"
-      src="../../../../public/images/logo.ico"
-      height="50"
-      className="mr-2"
-    ></img>
+    <img alt="logo" src="/images/logo.ico" height="50" className="mr-2"></img>
   );
   const end = (
     <div className="flex align-items-center gap-2">
