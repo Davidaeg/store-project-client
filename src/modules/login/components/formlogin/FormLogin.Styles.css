@@ -1,0 +1,64 @@
+.FormLogin {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  bottom: 0.5;
+  right: 100px;
+  bottom: 2cm;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  box-shadow: none;
+}
+.PrincipalCard {
+  background-image: url('/images/Fondo2.webp');
+  background-size: cover;
+  background-position: center;
+  height: 600px;
+}
+
+.FormLogin .p-float-label {
+  display: flex;
+  align-items: center;
+}
+
+.FormLogin .p-float-label-text {
+  margin-left: 2rem;
+}
+
+.FormLogin .p-inputtext {
+  border: none;
+  border-bottom: 2px solid #fba855;
+  border-radius: 0;
+}
+
+.FormLogin .p-field:focus-within .p-inputtext:focus {
+  border-color: #fba855;
+  box-shadow: none;
+}
+
+.FormLogin .p-float-label i {
+  color: #fba855;
+}
+
+.FormLogin .p-float-label {
+  margin-bottom: 4rem;
+}
+
+.FormLogin .p-card-title {
+  text-align: center;
+}
+.FormLogin .p-button-Login .p-button:focus,
+.p-button:active {
+  border-color: #ff6400;
+  box-shadow: 0 0 0 2px rgba(255, 100, 0, 0.5);
+}
+
+.FormLogin .p-button {
+  background-color: #ff6400;
+  color: #ffffff;
+  border: none;
+}
+.flex a {
+  color: #ff6400;
+  text-decoration: none;
+}

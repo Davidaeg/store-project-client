@@ -13,7 +13,7 @@ export const TempView = () => {
       .catch(() => console.log(error));
   }, []);
   return (
-    <Panel header="Temp View" style={{ height: 'calc(100vh - 100px)' }}>
+    <Panel header="Temp View">
       <div className="p-d-flex p-jc-center">
         <h1>Temp View</h1>
         {currentPoducts.map((product) => (

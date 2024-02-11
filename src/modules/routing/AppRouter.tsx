@@ -2,7 +2,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { appRoutes } from './routes';
 
 const user = {
-  routes: ['/home', '/products']
+  routes: ['/home', '/products', '/signup', '/login']
   // routes: ['/home'],
 };
 
