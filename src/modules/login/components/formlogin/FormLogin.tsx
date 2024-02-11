@@ -10,9 +10,9 @@ export default function FormLogin() {
   const [password, setPassword] = useState('');
 
   return (
-    <Card className="PrincipalCard">
+    <Card className="principal-card">
       <div className="p-fluid">
-        <Card title="Login" className="FormLogin">
+        <Card title="Login" className="form-login">
           <div className="p-fluid">
             <div className="p-field">
               <span className="p-float-label">

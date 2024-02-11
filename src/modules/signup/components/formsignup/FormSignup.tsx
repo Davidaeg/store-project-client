@@ -8,24 +8,45 @@ import { Button } from 'primereact/button';
 import './FormSignup.Styles.css';
 
 export default function FormSignup() {
-  const [name, setName] = useState('');
-  const [firstLastName, setFirstLastName] = useState('');
-  const [secondLastName, setSecondLastName] = useState('');
-  const [birthdate, setBirthdate] = useState<Date | null>(null);
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [address, setAddress] = useState('');
-  const [password, setPassword] = useState('');
+  type Person = {
+    name: string;
+    firstLastName: string;
+    secondLastName: string;
+    birthdate: Date | null;
+    email: string;
+    phone: string;
+    address: string;
+    password: string;
+  };
 
+  const defaultPerson: Person = {
+    name: '',
+    firstLastName: '',
+    secondLastName: '',
+    birthdate: null,
+    email: '',
+    phone: '',
+    address: '',
+    password: ''
+  };
+
+  const [newPerson, setNewPerson] = useState<Person>({ ...defaultPerson });
+
+  const handleInputChange = (field: keyof Person, value: string | Date) => {
+    setNewPerson((prevState) => ({
+      ...prevState,
+      [field]: value
+    }));
+  };
   return (
-    <Card title="Sign Up" className="FormSignup">
+    <Card title="Sign Up" className="form-signup">
       <div className="p-fluid">
         <div className="p-field">
           <span className="p-float-label">
             <InputText
               id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              value={newPerson.name}
+              onChange={(e) => handleInputChange('name', e.target.value)}
             />
             <label htmlFor="name">Name</label>
           </span>
@@ -34,8 +55,10 @@ export default function FormSignup() {
           <span className="p-float-label">
             <InputText
               id="firstLastName"
-              value={firstLastName}
-              onChange={(e) => setFirstLastName(e.target.value)}
+              value={newPerson.firstLastName}
+              onChange={(e) =>
+                handleInputChange('firstLastName', e.target.value)
+              }
             />
             <label htmlFor="firstLastName">First Last Name</label>
           </span>
@@ -44,8 +67,10 @@ export default function FormSignup() {
           <span className="p-float-label">
             <InputText
               id="secondLastName"
-              value={secondLastName}
-              onChange={(e) => setSecondLastName(e.target.value)}
+              value={newPerson.secondLastName}
+              onChange={(e) =>
+                handleInputChange('secondLastName', e.target.value)
+              }
             />
             <label htmlFor="secondLastName">Second Last Name</label>
           </span>
@@ -54,8 +79,13 @@ export default function FormSignup() {
           <span className="p-float-label">
             <Calendar
               id="birthdate"
-              value={birthdate}
-              onChange={(e) => setBirthdate(e.value ? new Date(e.value) : null)}
+              value={newPerson.birthdate}
+              onChange={(e) =>
+                handleInputChange(
+                  'birthdate',
+                  e.value instanceof Date ? e.value : new Date()
+                )
+              }
               dateFormat="dd/mm/yy"
             />
             <label htmlFor="birthdate">Birthdate</label>
@@ -65,8 +95,8 @@ export default function FormSignup() {
           <span className="p-float-label">
             <InputText
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={newPerson.email}
+              onChange={(e) => handleInputChange('email', e.target.value)}
             />
             <label htmlFor="email">Email</label>
           </span>
@@ -75,8 +105,8 @@ export default function FormSignup() {
           <span className="p-float-label">
             <InputText
               id="phone"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              value={newPerson.phone}
+              onChange={(e) => handleInputChange('phone', e.target.value)}
             />
             <label htmlFor="phone">Phone</label>
           </span>
@@ -85,8 +115,8 @@ export default function FormSignup() {
           <span className="p-float-label">
             <InputText
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={newPerson.password}
+              onChange={(e) => handleInputChange('password', e.target.value)}
             />
             <label htmlFor="password">Password</label>
           </span>
@@ -95,8 +125,8 @@ export default function FormSignup() {
           <span className="p-float-label">
             <InputTextarea
               id="address"
-              value={address}
-              onChange={(e) => setAddress(e.target.value)}
+              value={newPerson.address}
+              onChange={(e) => handleInputChange('address', e.target.value)}
             />
             <label htmlFor="address">Address</label>
           </span>
