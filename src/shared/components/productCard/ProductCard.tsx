@@ -1,6 +1,5 @@
 import { Button } from 'primereact/button';
 import { Product } from '../../datasources/products/products.types';
-import { getSeverity } from './ProductCard.utils';
 import '../../../modules/home/components/carrousel/Carrousel.styles.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 
@@ -19,11 +18,7 @@ export const ProductCard = (product: Product) => {
         <h6 className="mt-0 mb-3">${product.price}</h6>
         <div className="mt-5 flex flex-wrap gap-2 justify-content-center">
           <Button className="search-button" icon="pi pi-search" rounded />
-          <Button
-            icon="pi pi-star-fill"
-            rounded
-            severity={getSeverity(product)}
-          />
+          <Button icon="pi pi-star-fill" rounded />
         </div>
       </div>
     </div>
