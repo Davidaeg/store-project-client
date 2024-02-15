@@ -1,5 +1,5 @@
 import { Home } from '../home/Home';
-import { TempView } from '../tempViews/TempView';
+import { Products } from '../Products/Products';
 import { RouteType } from './routes.types';
 import { Signup } from '../signup/Signup';
 import { Login } from '../login/Login';
@@ -16,7 +16,7 @@ export const appRoutes: RouteType[] = [
     path: '/products',
     name: 'Products',
     icon: 'pi pi-shopping-cart',
-    component: TempView,
+    component: Products,
     layout: 'store'
   },
   {
