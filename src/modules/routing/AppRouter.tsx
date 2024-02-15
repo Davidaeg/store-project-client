@@ -1,13 +1,10 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { appRoutes } from './routes';
-
-const user = {
-  routes: ['/home', '/products', '/signup', '/login']
-  // routes: ['/home'],
-};
+import { useContext } from 'react';
+import { AuthenticationContext } from '../auth/Authentication.context';
 
 export const AppRouter = () => {
-  //   const { user } = useContext(AuthenticationContext);
+  const { user } = useContext(AuthenticationContext);
 
   return (
     <Routes>
@@ -16,7 +13,7 @@ export const AppRouter = () => {
           if (user?.routes.includes(prop.path)) {
             return (
               <Route
-                path={`/store${prop.path}/*`}
+                path={`${user.rootPath}${prop.path}/*`}
                 element={<prop.component />}
                 key={key}
               />

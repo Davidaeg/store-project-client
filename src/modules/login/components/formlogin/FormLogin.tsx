@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import { Password } from 'primereact/password';
 import './FormLogin.Styles.css';
+import { AuthenticationContext } from '../../../auth/Authentication.context';
 
 export default function FormLogin() {
+  const { login } = useContext(AuthenticationContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -46,6 +48,7 @@ export default function FormLogin() {
                 label="Login"
                 icon="pi pi-user"
                 className="w-10rem"
+                onClick={() => login({ username: email, password })}
               ></Button>
             </div>
             <div className="flex justify-content-center ">
