@@ -1,0 +1,27 @@
+.search-button {
+  background-color: #fba855 !important;
+  border-color: #fba855 !important;
+}
+.search-button:active,
+.search-button:focus {
+  border-color: #fba855 !important;
+  box-shadow: 0 0 0 0.2rem rgba(251, 168, 85, 0.25) !important;
+}
+.product-card {
+  height: 320px;
+  box-shadow: 1px 4px 7px #fba855;
+}
+.p-link {
+  background-color: #fba855;
+}
+
+.p-link[aria-current='page'] {
+  background-color: #fd8135;
+}
+.w-4 {
+  width: 60px;
+}
+
+.h-4 {
+  height: 130px;
+}
