@@ -1795,9 +1795,9 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-vite-tsconfig-paths@4.3.1:
+vite-tsconfig-paths@^4.3.1:
   version "4.3.1"
-  resolved "https://registry.npmjs.org/vite-tsconfig-paths/-/vite-tsconfig-paths-4.3.1.tgz"
+  resolved "https://registry.yarnpkg.com/vite-tsconfig-paths/-/vite-tsconfig-paths-4.3.1.tgz#28762938151e7c80aec9d70c57e65ddce43a576f"
   integrity sha512-cfgJwcGOsIxXOLU/nELPny2/LUD/lcf1IbfyeKTv2bsupVbTH/xpFtdQlBmIP1GEK2CjjLxYhFfB+QODFAx5aw==
   dependencies:
     debug "^4.1.1"
