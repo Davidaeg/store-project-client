@@ -20,11 +20,11 @@ const product: Product = {
   stock: 100
 };
 
+type ProductItem = { productId: number; quantity: number };
+
 export const TempView = () => {
   const { play } = useAudio('/audios/beep.mp3');
-  const [data, setData] = useState<{ productId: number; quantity: number }[]>(
-    []
-  );
+  const [data, setData] = useState<ProductItem[]>([]);
 
   const onDetected = (result: QuaggaJSResultObject) => {
     const code = result.codeResult.code;

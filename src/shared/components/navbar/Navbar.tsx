@@ -2,49 +2,40 @@ import { Menubar } from 'primereact/menubar';
 import { MenuItem } from 'primereact/menuitem';
 import { Avatar } from 'primereact/avatar';
 import { useNavigate } from 'react-router-dom';
+import { appRoutes } from '../../../modules/routing/routes';
 
 import './Navbar.styles.css';
+import { useContext, useEffect, useState } from 'react';
+import { AuthenticationContext } from '../../../modules/auth/Authentication.context';
 
 export const Navbar = () => {
+  const { user } = useContext(AuthenticationContext);
   const navigate = useNavigate();
+  const [items, setItems] = useState<MenuItem[]>([]);
+
   const activeRoute = (routeName: string) => {
     return window.location.href.includes(routeName) ? 'active' : '';
   };
 
-  const items: MenuItem[] = [
-    {
-      label: 'Home',
-      icon: 'pi pi-home',
-      command: () => {
-        navigate('/store/home');
-      },
-      className: activeRoute('/store/home')
-    },
-    {
-      label: 'Products',
-      icon: 'pi pi-star',
-      command: () => {
-        navigate('/store/products');
-      },
-      className: activeRoute('/store/products')
-    },
-    {
-      label: 'Consulta',
-      icon: 'pi pi-envelope',
-      command: () => {
-        navigate('/store/consulta');
-      },
-      className: activeRoute('/store/consulta')
-    },
-    {
-      label: 'Registrarse',
-      icon: 'pi pi-user',
-      command: () => {
-        navigate('/store/signup');
-      },
-      className: activeRoute('/store/signup')
-    }
-  ];
+  const setAvailableRoutes = () => {
+    const items = appRoutes
+      .filter((route) => user?.routes.includes(route.path))
+      .map((route) => {
+        return {
+          label: route.name,
+          icon: route.icon,
+          command: () => {
+            navigate(`${route.layout}${route.path}`);
+          },
+          className: activeRoute(`${route.layout}${route.path}`)
+        };
+      });
+    setItems(items);
+  };
+
+  useEffect(() => {
+    setAvailableRoutes();
+  }, [user]);
 
   const start = (
     <img alt="logo" src="/images/logo.ico" height="50" className="mr-2"></img>
