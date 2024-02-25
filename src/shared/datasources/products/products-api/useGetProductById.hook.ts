@@ -2,19 +2,18 @@ import { useState } from 'react';
 import { Product } from '../products.types';
 import storeService from '../../store-service/storeService';
 
-export const useProductApi = () => {
+export const useGetProductById = () => {
   const [error, setError] = useState<string>('');
-  const [currentPoducts, setCurrentProducts] = useState<Product[]>([]);
+  const [currentPoduct, setCurrentProduct] = useState<Product>();
 
-  const getAllProducts = async () => {
+  const getProductByID = async (id: number) => {
     try {
       await storeService
-        .get('/products')
+        .get(`/products/${id}`)
         .then((resp) => {
-          setCurrentProducts(resp.data as Product[]);
+          setCurrentProduct(resp.data as Product);
         })
         .catch((e) => {
-          console.log(e);
           setError(e.message);
         });
     } catch (e: any) {
@@ -24,8 +23,8 @@ export const useProductApi = () => {
   };
 
   return {
-    getAllProducts,
-    currentPoducts,
+    getProductByID,
+    currentPoduct,
     error
   };
 };
