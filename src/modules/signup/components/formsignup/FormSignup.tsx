@@ -4,7 +4,9 @@ import { Card } from 'primereact/card';
 import { Calendar } from 'primereact/calendar';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Button } from 'primereact/button';
-
+import { useCreatePerson } from '../../../../shared/datasources/person/person-api/UseCreatePerson.hook';
+import { CreatePersonDto } from '../../../../shared/datasources/person/person.types';
+import { useModals } from '../../../../shared/hooks/modals/useModals.hook';
 import './FormSignup.Styles.css';
 
 export default function FormSignup() {
@@ -12,7 +14,7 @@ export default function FormSignup() {
     name: string;
     firstLastName: string;
     secondLastName: string;
-    birthdate: Date | null;
+    birthdate: Date;
     email: string;
     phone: string;
     address: string;
@@ -23,13 +25,13 @@ export default function FormSignup() {
     name: '',
     firstLastName: '',
     secondLastName: '',
-    birthdate: null,
+    birthdate: new Date(),
     email: '',
     phone: '',
     address: '',
     password: ''
   };
-
+  const { createPerson } = useCreatePerson();
   const [newPerson, setNewPerson] = useState<Person>({ ...defaultPerson });
 
   const handleInputChange = (field: keyof Person, value: string | Date) => {
@@ -37,6 +39,32 @@ export default function FormSignup() {
       ...prevState,
       [field]: value
     }));
+  };
+  const { showErrorModal, showSuccessModal } = useModals();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const newPersonDto: CreatePersonDto = {
+      name: newPerson.name,
+      firstLastName: newPerson.firstLastName,
+      secondLastName: newPerson.secondLastName,
+      birthday: newPerson.birthdate,
+      email: newPerson.email,
+      phoneNumber: newPerson.phone,
+      address: newPerson.address,
+      password: newPerson.password
+    };
+    createPerson(newPersonDto)
+      .then(() => {
+        console.log('Creating a person');
+        setNewPerson({ ...defaultPerson });
+        showSuccessModal();
+      })
+      .catch((error) => {
+        console.error('Error creating person:', error);
+        setNewPerson({ ...defaultPerson });
+        showErrorModal();
+      });
   };
   return (
     <Card title="Sign Up" className="form-signup">
@@ -137,6 +165,7 @@ export default function FormSignup() {
             label="Sign Up"
             icon="pi pi-user-plus"
             className="w-10rem"
+            onClick={handleSubmit}
           ></Button>
         </div>
         <div className="flex justify-content-center ">
