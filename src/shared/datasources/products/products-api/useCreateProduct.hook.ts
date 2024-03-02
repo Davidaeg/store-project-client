@@ -22,6 +22,7 @@ export const useCreateProduct = () => {
     }
   };
 
+  //this returns the object
   return {
     createProduct,
     productToCreate,
