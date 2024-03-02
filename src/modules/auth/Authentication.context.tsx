@@ -23,7 +23,7 @@ const clientUser = {
   username: 'client',
   id: '1',
   rootPath: '/store',
-  routes: ['/home', '/products', '/signup', '/login']
+  routes: ['/home', '/products', '/signup', '/login', '/form']
 };
 
 const adminUser = {

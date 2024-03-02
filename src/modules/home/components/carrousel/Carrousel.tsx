@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { Carousel } from 'primereact/carousel';
 import { responsiveOptions } from './carrousel.utils';
 import { ProductCard } from '../../../../shared/components/productCard/ProductCard';
-import { useProductApi } from '../../../../shared/datasources/products/products-api/useProductApi.hook';
+import { useGetAllProducts } from '../../../../shared/datasources/products/products-api/useGetAllProducts.hook';
 
 export const Carrousel = () => {
-  const { currentPoducts, getAllProducts } = useProductApi();
+  const { currentPoducts, getAllProducts } = useGetAllProducts();
   useEffect(() => {
     getAllProducts()
       .then(() => {
