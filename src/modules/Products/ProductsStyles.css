@@ -1,0 +1,23 @@
+.dropdown-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.input-button-container {
+  margin-top: 1rem;
+  margin-left: 1rem;
+}
+
+.input-button-container > * {
+  margin-right: 0.5rem;
+}
+
+.input-button-container button {
+  background-color: #fba855;
+  border: #fba855;
+}

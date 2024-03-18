@@ -48,7 +48,6 @@ export const ProductForm = () => {
     createProduct(newProduct)
       .then(() => {
         console.log('Creating a product');
-        console.log('hola hol');
       })
       .catch((error) => console.error('Error creating product:', error));
   };
@@ -83,6 +82,21 @@ export const ProductForm = () => {
         </div>
         <div className="card flex">
           <small id="image">Enter image name.</small>
+        </div>
+
+        <div className="card flex">
+          <InputText
+            className="p-inputtext-lg"
+            placeholder="Image"
+            name="image-file"
+            id="image"
+            value={formData.image}
+            onChange={handleChange}
+            type="file"
+          />
+        </div>
+        <div className="card flex">
+          <small id="image">Enter image file.</small>
         </div>
 
         <div className="card flex">
