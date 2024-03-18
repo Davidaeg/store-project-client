@@ -5,6 +5,8 @@ import '../Products/ProductsStyles.css';
 import { useProductFilter } from '../../shared/datasources/products/products-api/useProductFilter.hook';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
 import { Orders, options } from './OrdersTypes.enum';
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
 
 export const Products = () => {
   const {
@@ -17,6 +19,7 @@ export const Products = () => {
   } = useProductFilter();
 
   const [order, setOrder] = useState<Orders>(Orders.Default);
+  const [searchByName, setSearchByName] = useState<string>('');
 
   const handleOrder: Record<string, () => void> = {
     [Orders.Ascendent]: () => {
@@ -35,6 +38,10 @@ export const Products = () => {
     handleOrder[e.value]();
   };
 
+  const handleSearch = () => {
+    filterProductsByName(searchByName);
+  };
+
   useEffect(() => {
     getAllProducts()
       .then(() => {
@@ -47,14 +54,24 @@ export const Products = () => {
     <Panel header="Products">
       <div className="grid justify-content-center">
         <div className="card flex justify-content-center">
-          <Dropdown
-            value={order}
-            onChange={handleOrderChange}
-            options={options}
-            optionLabel="label"
-            placeholder="Select a City"
-            className="w-full md:w-14rem"
-          />
+          <div className="dropdown-container">
+            <small id="username-help">Sort Items by price</small>
+            <Dropdown
+              value={order}
+              onChange={handleOrderChange}
+              options={options}
+              optionLabel="label"
+              placeholder="Select a City"
+              className="w-full md:w-14rem"
+            />
+          </div>
+          <div className="input-button-container">
+            <InputText
+              value={searchByName}
+              onChange={(e) => setSearchByName(e.target.value)}
+            />
+            <Button label="Search" icon="pi pi-search" onClick={handleSearch} />
+          </div>
         </div>
       </div>
       <div className="grid justify-content-center products-display">
