@@ -4,12 +4,12 @@ import { Card } from 'primereact/card';
 import { Calendar } from 'primereact/calendar';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Button } from 'primereact/button';
-import { useCreatePerson } from '../../../../shared/datasources/person/person-api/UseCreatePerson.hook';
-import { CreatePersonDto } from '../../../../shared/datasources/person/person.types';
-import { useModals } from '../../../../shared/hooks/modals/useModals.hook';
-import './FormSignup.Styles.css';
+import { useCreatePerson } from '../../shared/datasources/person/person-api/UseCreatePerson.hook';
+import { useModals } from '../../shared/hooks/modals/useModals.hook';
+import { CreatePersonDto } from '../../shared/datasources/person/person.types';
+import '../empsignup/EmpSignup.Styles.css';
 
-export default function FormSignup() {
+export default function EmpSignup() {
   type Person = {
     name: string;
     firstLastName: string;
@@ -31,7 +31,7 @@ export default function FormSignup() {
     phone: '',
     address: '',
     password: '',
-    userType: 'customer'
+    userType: 'employee'
   };
   const { createPerson } = useCreatePerson();
   const [newPerson, setNewPerson] = useState<Person>({ ...defaultPerson });
@@ -55,7 +55,7 @@ export default function FormSignup() {
       phoneNumber: newPerson.phone,
       address: newPerson.address,
       password: newPerson.password,
-      userType: 'customer'
+      userType: 'employee'
     };
     createPerson(newPersonDto)
       .then(() => {
@@ -70,7 +70,7 @@ export default function FormSignup() {
       });
   };
   return (
-    <Card title="Sign Up" className="form-signup">
+    <Card title="Sign Up" className="form-empSignup">
       <div className="p-fluid">
         <div className="p-field">
           <span className="p-float-label">

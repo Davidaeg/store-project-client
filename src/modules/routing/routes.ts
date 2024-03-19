@@ -5,6 +5,7 @@ import { Signup } from '../signup/Signup';
 import { Login } from '../login/Login';
 import { TempView } from '../tempViews/TempView';
 import { Form } from '../ProductForm/ProductForm';
+import EmpSignup from '../empsignup/EmpSignup';
 
 export const appRoutes: RouteType[] = [
   {
@@ -43,10 +44,17 @@ export const appRoutes: RouteType[] = [
     layout: '/admin'
   },
   {
+    path: '/empsignup',
+    name: 'Signup',
+    icon: 'pi pi-user',
+    component: EmpSignup,
+    layout: '/admin'
+  },
+  {
     path: '/form',
     name: 'Products Form',
     icon: 'pi pi-pencil',
     component: Form,
-    layout: '/store'
+    layout: '/admin'
   }
 ];

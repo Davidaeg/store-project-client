@@ -1,11 +1,12 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
-// import { useModals } from '../../shared/hooks/modals/useModals.hook';
+import { useSignin } from '../../shared/datasources/user/user-api/useSignin.hook';
 
 type User = {
   rootPath: string;
   routes: string[];
   username: string;
   id: string;
+  userType: string;
 };
 
 type LoginForm = {
@@ -15,73 +16,62 @@ type LoginForm = {
 
 type AuthenticationContextType = {
   user: User | undefined;
-  login: (atrs: LoginForm) => void;
+  login: (attrs: LoginForm) => void;
   logout: () => void;
 };
 
-const clientUser = {
-  username: 'client',
+const defaultUser = {
   id: '1',
   rootPath: '/store',
-  routes: ['/home', '/products', '/signup', '/login', '/form']
-};
-
-const adminUser = {
-  username: 'Admin',
-  id: '1',
-  rootPath: '/admin',
-  routes: ['/sale']
+  routes: ['/home', '/login', '/signup'],
+  username: 'guest',
+  userType: 'guest',
+  userId: 0,
+  personId: 0
 };
 
 export const AuthenticationContext = React.createContext(
-  {} as any as AuthenticationContextType
+  {} as AuthenticationContextType
 );
 
 export const AuthenticationProvider: React.FC<PropsWithChildren> = ({
   children
 }) => {
-  //   const { showErrorModal } = useModals();
-  const [user, setuser] = useState<User>();
-  //   const { login, whoAmI } = useAuthApi();
+  const { signin } = useSignin();
+  const [user, setUser] = useState<User>();
 
-  const doLogin = async (atrs: LoginForm) => {
-    console.log('Login', atrs);
-
-    // const response = await login(atrs);
-    // if (!response) {
-    //   showErrorModal('Error en login', 'Constraseña incorrecta');
-    //   return;
-    // }
-    // localStorage.setItem('user', (response as User).email);
-    // setuser(response as User);
+  const doLogin = async (attrs: LoginForm) => {
+    try {
+      const userData = await signin(attrs.username, attrs.password);
+      if (userData) {
+        let userRoutes: string[] = [];
+        if (userData.userType === 'customer') {
+          userRoutes = ['/home', '/products', '/signup', '/login'];
+        } else if (userData.userType === 'employee') {
+          userRoutes = ['/sale', '/empsignup', '/form'];
+        }
+        setUser({
+          id: userData.userId.toString(),
+          rootPath: userData.userType === 'customer' ? '/store' : '/admin',
+          routes: userRoutes,
+          username: userData.username,
+          userType: userData.userType
+        });
+      }
+    } catch (error) {
+      console.error('Error signing in:', error);
+    }
   };
 
   const logout = () => {
-    console.log('Logout');
-
-    // localStorage.removeItem('user');
-    // setuser(undefined);
+    setUser(undefined);
   };
 
   useEffect(() => {
-    setuser(clientUser);
-    // if (!localStorage.getItem('user')) return;
-    // whoAmI(localStorage.getItem('user')!)
-    //   .then((response) => setuser(response as User))
-    //   .catch((err) => {
-    //     console.log('Error en el whoAmI', err);
-    //     showErrorModal('Error en login', 'Constraseña incorrecta');
-    //   });
+    setUser(defaultUser);
   }, []);
-
   return (
-    <AuthenticationContext.Provider
-      value={{
-        user,
-        login: doLogin,
-        logout
-      }}
-    >
+    <AuthenticationContext.Provider value={{ user, login: doLogin, logout }}>
       {children}
     </AuthenticationContext.Provider>
   );
