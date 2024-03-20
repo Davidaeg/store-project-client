@@ -5,19 +5,21 @@ import { AuthenticationContext } from '../auth/Authentication.context';
 import { Home } from '../home/Home';
 import { TempView } from '../tempViews/TempView';
 
+const userTypeComponents: Record<string, JSX.Element> = {
+  customer: <Home />,
+  employee: <TempView />
+};
 export const AppRouter = () => {
   const { user } = useContext(AuthenticationContext);
 
-  const InitialComponent = () => {
-    if (user) {
-      if (user.userType === 'customer') {
-        return <Home />;
-      } else if (user.userType === 'employee') {
-        return <TempView />;
-      }
-    }
-    return <Navigate to="/store/home" />;
+  const initialComponent = () => {
+    return (
+      userTypeComponents[user?.userType || 'Guest'] || (
+        <Navigate to="/store/home" />
+      )
+    );
   };
+
   return (
     <Routes>
       <>
@@ -32,7 +34,7 @@ export const AppRouter = () => {
             );
           }
         })}
-        <Route path="/*" element={InitialComponent()} />
+        <Route path="/*" element={initialComponent()} />
       </>
     </Routes>
   );

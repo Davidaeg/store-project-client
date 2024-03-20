@@ -9,31 +9,20 @@ import { CreatePersonDto } from '../../../../shared/datasources/person/person.ty
 import { useModals } from '../../../../shared/hooks/modals/useModals.hook';
 import './FormSignup.Styles.css';
 
+const defaultPerson: Person = {
+  name: '',
+  firstLastName: '',
+  secondLastName: '',
+  birthdate: new Date(),
+  email: '',
+  phone: '',
+  address: '',
+  password: '',
+  userType: 'customer'
+};
 export default function FormSignup() {
-  type Person = {
-    name: string;
-    firstLastName: string;
-    secondLastName: string;
-    birthdate: Date;
-    email: string;
-    phone: string;
-    address: string;
-    password: string;
-    userType: string;
-  };
-
-  const defaultPerson: Person = {
-    name: '',
-    firstLastName: '',
-    secondLastName: '',
-    birthdate: new Date(),
-    email: '',
-    phone: '',
-    address: '',
-    password: '',
-    userType: 'customer'
-  };
   const { createPerson } = useCreatePerson();
+  const { showErrorModal, showSuccessModal } = useModals();
   const [newPerson, setNewPerson] = useState<Person>({ ...defaultPerson });
 
   const handleInputChange = (field: keyof Person, value: string | Date) => {
@@ -42,19 +31,29 @@ export default function FormSignup() {
       [field]: value
     }));
   };
-  const { showErrorModal, showSuccessModal } = useModals();
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    const {
+      name,
+      firstLastName,
+      secondLastName,
+      birthdate,
+      email,
+      phone,
+      address,
+      password
+    } = newPerson;
     const newPersonDto: CreatePersonDto = {
-      name: newPerson.name,
-      firstLastName: newPerson.firstLastName,
-      secondLastName: newPerson.secondLastName,
-      birthday: newPerson.birthdate,
-      email: newPerson.email,
-      phoneNumber: newPerson.phone,
-      address: newPerson.address,
-      password: newPerson.password,
+      name,
+      firstLastName,
+      secondLastName,
+      birthday: birthdate,
+      email,
+      phoneNumber: phone,
+      address,
+      password,
       userType: 'customer'
     };
     createPerson(newPersonDto)
@@ -63,7 +62,7 @@ export default function FormSignup() {
         setNewPerson({ ...defaultPerson });
         showSuccessModal();
       })
-      .catch((error) => {
+      .catch(({ error }) => {
         console.error('Error creating person:', error);
         setNewPerson({ ...defaultPerson });
         showErrorModal();
