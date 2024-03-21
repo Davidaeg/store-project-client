@@ -1,8 +1,10 @@
+import { UserType } from './user.types';
+
 export interface User {
   userId: number;
   username: string;
   password: string;
-  userType: string;
+  userType: UserType;
 }
 
 export interface CreateUserDto {

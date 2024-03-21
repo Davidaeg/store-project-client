@@ -1,23 +1,18 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
 import { useSignin } from '../../shared/datasources/user/user-api/useSignin.hook';
+import {
+  LoginForm,
+  User,
+  UserType
+} from '../../shared/datasources/user/user.types';
+import { userRoutesMap } from './userRoutes';
 
-enum UserType {
-  GUEST = 'guest',
-  CUSTOMER = 'customer',
-  EMPLOYEE = 'employee'
-}
-
-type User = {
-  rootPath: string;
-  routes: string[];
-  username: string;
-  id: string;
-  userType: UserType;
-};
-
-type LoginForm = {
-  username: string;
-  password: string;
+const guestUser: User = {
+  id: 'guest',
+  rootPath: '/store',
+  routes: userRoutesMap[UserType.GUEST],
+  username: 'Guest',
+  userType: UserType.GUEST
 };
 
 type AuthenticationContextType = {
@@ -36,52 +31,32 @@ export const AuthenticationProvider: React.FC<PropsWithChildren> = ({
   const { signin } = useSignin();
   const [user, setUser] = useState<User>();
 
-  const userRoutesMap: Record<UserType, string[]> = {
-    [UserType.CUSTOMER]: ['/home', '/products', '/signup', 'login'],
-    [UserType.EMPLOYEE]: ['/sale', '/empsignup', '/form'],
-    [UserType.GUEST]: ['/home', '/signup', '/login']
-  };
-
   const doLogin = async (attrs: LoginForm) => {
     try {
       const userData = await signin(attrs.username, attrs.password);
-      const userType: UserType | undefined = Object.values(UserType).find(
-        (type) => type === userData?.userType
-      );
+      if (!userData) {
+        setUser(guestUser);
+        return;
+      }
 
-      const user: User = !userData
-        ? {
-            id: 'guest',
-            rootPath: '/store',
-            routes: userRoutesMap[UserType.GUEST],
-            username: 'Guest',
-            userType: UserType.GUEST
-          }
-        : {
-            id: userData.userId?.toString() || '',
-            rootPath: userType === UserType.CUSTOMER ? '/store' : '/admin',
-            routes: userType
-              ? userRoutesMap[userType]
-              : userRoutesMap[UserType.GUEST],
-            username: userData.username || '',
-            userType: userType || UserType.GUEST
-          };
+      const currentUser = {
+        id: userData.userId.toString() || '',
+        rootPath: userData.userType === UserType.CUSTOMER ? '/store' : '/admin',
+        routes: userRoutesMap[userData.userType],
+        username: userData.username || '',
+        userType: userData.userType
+      };
 
-      setUser(user);
+      setUser(currentUser);
     } catch (error) {
       console.error('Error signing in:', error);
     }
   };
 
   useEffect(() => {
-    setUser({
-      id: 'guest',
-      rootPath: '/store',
-      routes: userRoutesMap[UserType.GUEST],
-      username: 'Guest',
-      userType: UserType.GUEST
-    });
+    setUser(guestUser);
   }, []);
+
   const logout = () => {
     setUser(undefined);
   };

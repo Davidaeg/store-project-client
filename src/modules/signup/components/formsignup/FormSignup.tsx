@@ -35,27 +35,14 @@ export default function FormSignup() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const {
-      name,
-      firstLastName,
-      secondLastName,
-      birthdate,
-      email,
-      phone,
-      address,
-      password
-    } = newPerson;
+    //TODO
     const newPersonDto: CreatePersonDto = {
-      name,
-      firstLastName,
-      secondLastName,
-      birthday: birthdate,
-      email,
-      phoneNumber: phone,
-      address,
-      password,
+      ...newPerson,
+      phoneNumber: newPerson.phone,
+      birthday: newPerson.birthdate,
       userType: 'customer'
     };
+
     createPerson(newPersonDto)
       .then(() => {
         console.log('Creating a person');
