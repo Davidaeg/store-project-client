@@ -1,11 +1,18 @@
 import React, { PropsWithChildren, useEffect, useState } from 'react';
-// import { useModals } from '../../shared/hooks/modals/useModals.hook';
+import { useSignin } from '../../shared/datasources/user/user-api/useSignin.hook';
+
+enum UserType {
+  GUEST = 'guest',
+  CUSTOMER = 'customer',
+  EMPLOYEE = 'employee'
+}
 
 type User = {
   rootPath: string;
   routes: string[];
   username: string;
   id: string;
+  userType: UserType;
 };
 
 type LoginForm = {
@@ -15,73 +22,72 @@ type LoginForm = {
 
 type AuthenticationContextType = {
   user: User | undefined;
-  login: (atrs: LoginForm) => void;
+  login: (attrs: LoginForm) => void;
   logout: () => void;
 };
 
-const clientUser = {
-  username: 'client',
-  id: '1',
-  rootPath: '/store',
-  routes: ['/home', '/products', '/signup', '/login', '/form']
-};
-
-const adminUser = {
-  username: 'Admin',
-  id: '1',
-  rootPath: '/admin',
-  routes: ['/sale']
-};
-
 export const AuthenticationContext = React.createContext(
-  {} as any as AuthenticationContextType
+  {} as AuthenticationContextType
 );
 
 export const AuthenticationProvider: React.FC<PropsWithChildren> = ({
   children
 }) => {
-  //   const { showErrorModal } = useModals();
-  const [user, setuser] = useState<User>();
-  //   const { login, whoAmI } = useAuthApi();
+  const { signin } = useSignin();
+  const [user, setUser] = useState<User>();
 
-  const doLogin = async (atrs: LoginForm) => {
-    console.log('Login', atrs);
-
-    // const response = await login(atrs);
-    // if (!response) {
-    //   showErrorModal('Error en login', 'Constraseña incorrecta');
-    //   return;
-    // }
-    // localStorage.setItem('user', (response as User).email);
-    // setuser(response as User);
+  const userRoutesMap: Record<UserType, string[]> = {
+    [UserType.CUSTOMER]: ['/home', '/products', '/signup', 'login'],
+    [UserType.EMPLOYEE]: ['/sale', '/empsignup', '/form'],
+    [UserType.GUEST]: ['/home', '/signup', '/login']
   };
 
-  const logout = () => {
-    console.log('Logout');
+  const doLogin = async (attrs: LoginForm) => {
+    try {
+      const userData = await signin(attrs.username, attrs.password);
+      const userType: UserType | undefined = Object.values(UserType).find(
+        (type) => type === userData?.userType
+      );
 
-    // localStorage.removeItem('user');
-    // setuser(undefined);
+      const user: User = !userData
+        ? {
+            id: 'guest',
+            rootPath: '/store',
+            routes: userRoutesMap[UserType.GUEST],
+            username: 'Guest',
+            userType: UserType.GUEST
+          }
+        : {
+            id: userData.userId?.toString() || '',
+            rootPath: userType === UserType.CUSTOMER ? '/store' : '/admin',
+            routes: userType
+              ? userRoutesMap[userType]
+              : userRoutesMap[UserType.GUEST],
+            username: userData.username || '',
+            userType: userType || UserType.GUEST
+          };
+
+      setUser(user);
+    } catch (error) {
+      console.error('Error signing in:', error);
+    }
   };
 
   useEffect(() => {
-    setuser(clientUser);
-    // if (!localStorage.getItem('user')) return;
-    // whoAmI(localStorage.getItem('user')!)
-    //   .then((response) => setuser(response as User))
-    //   .catch((err) => {
-    //     console.log('Error en el whoAmI', err);
-    //     showErrorModal('Error en login', 'Constraseña incorrecta');
-    //   });
+    setUser({
+      id: 'guest',
+      rootPath: '/store',
+      routes: userRoutesMap[UserType.GUEST],
+      username: 'Guest',
+      userType: UserType.GUEST
+    });
   }, []);
+  const logout = () => {
+    setUser(undefined);
+  };
 
   return (
-    <AuthenticationContext.Provider
-      value={{
-        user,
-        login: doLogin,
-        logout
-      }}
-    >
+    <AuthenticationContext.Provider value={{ user, login: doLogin, logout }}>
       {children}
     </AuthenticationContext.Provider>
   );

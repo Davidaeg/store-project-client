@@ -2,9 +2,23 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { appRoutes } from './routes';
 import { useContext } from 'react';
 import { AuthenticationContext } from '../auth/Authentication.context';
+import { Home } from '../home/Home';
+import { TempView } from '../tempViews/TempView';
 
+const userTypeComponents: Record<string, JSX.Element> = {
+  customer: <Home />,
+  employee: <TempView />
+};
 export const AppRouter = () => {
   const { user } = useContext(AuthenticationContext);
+
+  const initialComponent = () => {
+    return (
+      userTypeComponents[user?.userType || 'Guest'] || (
+        <Navigate to="/store/home" />
+      )
+    );
+  };
 
   return (
     <Routes>
@@ -20,7 +34,7 @@ export const AppRouter = () => {
             );
           }
         })}
-        <Route path="/*" element={<Navigate to={'/store/home'} />} />
+        <Route path="/*" element={initialComponent()} />
       </>
     </Routes>
   );

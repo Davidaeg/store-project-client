@@ -42,7 +42,8 @@ export const Navbar = () => {
   );
   const end = (
     <div className="flex align-items-center gap-2">
-      <p>Username</p>
+      <p>{user ? user.username.split('@')[0] : 'Guest'}</p>
+
       <Avatar
         image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
         shape="circle"
