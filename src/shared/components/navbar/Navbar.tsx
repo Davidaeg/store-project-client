@@ -41,22 +41,25 @@ export const Navbar = () => {
   const start = (
     <img alt="logo" src="/images/logo.ico" height="50" className="mr-2"></img>
   );
+  const SessionButtonActionHandler = () => {
+    if (user?.userType === UserType.GUEST) {
+      navigate('/store/login');
+    } else {
+      logout();
+    }
+  };
+
   const end = (
     <div className="flex align-items-center gap-2">
       <button
-        className="p-button p-button-text p-button-rounded"
-        onClick={() => logout()}
+        className="logButton p-button p-button-text p-button-rounded "
+        onClick={SessionButtonActionHandler}
       >
-        {' '}
-        {user?.userType === UserType.GUEST ? 'login' : 'logout'}{' '}
+        {user?.userType === UserType.GUEST ? 'Login' : 'Logout'}{' '}
       </button>
 
       <p>{user ? user.username.split('@')[0] : 'Guest'}</p>
-
-      <Avatar
-        image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png"
-        shape="circle"
-      />
+      <Avatar image="../../../../public/images/user.png" shape="circle" />
     </div>
   );
 
