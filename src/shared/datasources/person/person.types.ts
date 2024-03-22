@@ -1,3 +1,5 @@
+import { UserType } from '../user/user.types';
+
 export interface Person {
   personId: number;
   name: string;
@@ -18,5 +20,5 @@ export interface CreatePersonDto {
   phoneNumber: string;
   address: string;
   password: string;
-  userType: 'customer' | 'employee';
+  userType: UserType;
 }

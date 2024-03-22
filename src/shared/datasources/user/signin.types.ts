@@ -14,5 +14,5 @@ export interface CreateUserDto {
 export interface SigninResponse {
   id: number;
   username: string;
-  userType: string;
+  userType: UserType;
 }

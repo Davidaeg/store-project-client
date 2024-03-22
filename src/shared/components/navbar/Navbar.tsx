@@ -7,9 +7,10 @@ import { appRoutes } from '../../../modules/routing/routes';
 import './Navbar.styles.css';
 import { useContext, useEffect, useState } from 'react';
 import { AuthenticationContext } from '../../../modules/auth/Authentication.context';
+import { UserType } from '../../datasources/user/user.types';
 
 export const Navbar = () => {
-  const { user } = useContext(AuthenticationContext);
+  const { user, logout } = useContext(AuthenticationContext);
   const navigate = useNavigate();
   const [items, setItems] = useState<MenuItem[]>([]);
 
@@ -42,6 +43,14 @@ export const Navbar = () => {
   );
   const end = (
     <div className="flex align-items-center gap-2">
+      <button
+        className="p-button p-button-text p-button-rounded"
+        onClick={() => logout()}
+      >
+        {' '}
+        {user?.userType === UserType.GUEST ? 'login' : 'logout'}{' '}
+      </button>
+
       <p>{user ? user.username.split('@')[0] : 'Guest'}</p>
 
       <Avatar

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import storeService from '../../store-service/storeService';
 import { ErrorResponse } from 'react-router-dom';
-import { SigninResponse, User } from '../signin.types';
+import { User } from '../user.types';
 
 export const useSignin = () => {
   const [error, setError] = useState<string>('');
@@ -11,17 +11,11 @@ export const useSignin = () => {
     password: string
   ): Promise<User | undefined> => {
     try {
-      const response = await storeService.post<SigninResponse>(
-        '/users/signin',
-        { email, password }
-      );
-      const { id, username, userType } = response.data;
-      const user: User = {
-        userId: id,
-        username,
-        userType,
-        password: ''
-      };
+      const response = await storeService.post<User>('/users/signin', {
+        email,
+        password
+      });
+      const user = { ...response.data };
       return user;
     } catch (error: any) {
       console.error('Error signing in:', error);

@@ -8,7 +8,7 @@ export type User = {
   rootPath: string;
   routes: string[];
   username: string;
-  id: string;
+  id: number;
   userType: UserType;
 };
 
