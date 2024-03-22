@@ -8,7 +8,7 @@ import {
 import { userRoutesMap } from './userRoutes';
 
 const guestUser: User = {
-  id: 'guest',
+  id: 0,
   rootPath: '/store',
   routes: userRoutesMap[UserType.GUEST],
   username: 'Guest',
@@ -38,27 +38,25 @@ export const AuthenticationProvider: React.FC<PropsWithChildren> = ({
         setUser(guestUser);
         return;
       }
-
-      const currentUser = {
-        id: userData.userId.toString() || '',
-        rootPath: userData.userType === UserType.CUSTOMER ? '/store' : '/admin',
-        routes: userRoutesMap[userData.userType],
-        username: userData.username || '',
-        userType: userData.userType
-      };
-
-      setUser(currentUser);
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
     } catch (error) {
       console.error('Error signing in:', error);
     }
   };
 
   useEffect(() => {
-    setUser(guestUser);
+    if (localStorage.getItem('user')) {
+      const user: User = JSON.parse(localStorage.getItem('user') as string);
+      setUser(user);
+    } else {
+      setUser(guestUser);
+    }
   }, []);
 
   const logout = () => {
-    setUser(undefined);
+    setUser(guestUser);
+    localStorage.removeItem('user');
   };
 
   return (

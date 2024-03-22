@@ -8,24 +8,30 @@ import { useCreatePerson } from '../../../../shared/datasources/person/person-ap
 import { CreatePersonDto } from '../../../../shared/datasources/person/person.types';
 import { useModals } from '../../../../shared/hooks/modals/useModals.hook';
 import './FormSignup.Styles.css';
+import { UserType } from '../../../../shared/datasources/user/user.types';
 
-const defaultPerson: Person = {
+const defaultPerson = {
   name: '',
   firstLastName: '',
   secondLastName: '',
-  birthdate: new Date(),
+  birthday: new Date(),
   email: '',
-  phone: '',
+  phoneNumber: '',
   address: '',
   password: '',
-  userType: 'customer'
+  userType: UserType.CUSTOMER
 };
 export default function FormSignup() {
   const { createPerson } = useCreatePerson();
   const { showErrorModal, showSuccessModal } = useModals();
-  const [newPerson, setNewPerson] = useState<Person>({ ...defaultPerson });
+  const [newPerson, setNewPerson] = useState<CreatePersonDto>({
+    ...defaultPerson
+  });
 
-  const handleInputChange = (field: keyof Person, value: string | Date) => {
+  const handleInputChange = (
+    field: keyof CreatePersonDto,
+    value: string | Date
+  ) => {
     setNewPerson((prevState) => ({
       ...prevState,
       [field]: value
@@ -35,12 +41,9 @@ export default function FormSignup() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    //TODO
     const newPersonDto: CreatePersonDto = {
       ...newPerson,
-      phoneNumber: newPerson.phone,
-      birthday: newPerson.birthdate,
-      userType: 'customer'
+      userType: UserType.CUSTOMER
     };
 
     createPerson(newPersonDto)
@@ -96,10 +99,10 @@ export default function FormSignup() {
           <span className="p-float-label">
             <Calendar
               id="birthdate"
-              value={newPerson.birthdate}
+              value={newPerson.birthday}
               onChange={(e) =>
                 handleInputChange(
-                  'birthdate',
+                  'birthday',
                   e.value instanceof Date ? e.value : new Date()
                 )
               }
@@ -121,9 +124,9 @@ export default function FormSignup() {
         <div className="p-field">
           <span className="p-float-label">
             <InputText
-              id="phone"
-              value={newPerson.phone}
-              onChange={(e) => handleInputChange('phone', e.target.value)}
+              id="phoneNumber"
+              value={newPerson.phoneNumber}
+              onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
             />
             <label htmlFor="phone">Phone</label>
           </span>
