@@ -41,7 +41,7 @@ export const Navbar = () => {
   const start = (
     <img alt="logo" src="/images/logo.ico" height="50" className="mr-2"></img>
   );
-  const handlelogin = () => {
+  const SessionButtonActionHandler = () => {
     if (user?.userType === UserType.GUEST) {
       navigate('/store/login');
     } else {
@@ -52,9 +52,8 @@ export const Navbar = () => {
   const end = (
     <div className="flex align-items-center gap-2">
       <button
-        id="logButton"
-        className="p-button p-button-text p-button-rounded"
-        onClick={handlelogin}
+        className="logButton p-button p-button-text p-button-rounded "
+        onClick={SessionButtonActionHandler}
       >
         {user?.userType === UserType.GUEST ? 'Login' : 'Logout'}{' '}
       </button>
