@@ -18,6 +18,7 @@ export const ProductForm = () => {
     priceWithIva: 0,
     location: Location.Shelf1
   });
+  const [file, setFile] = useState<File | undefined>();
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -26,6 +27,24 @@ export const ProductForm = () => {
       ...prevData,
       [name]: value
     }));
+  };
+
+  function getImageName(filePath: string): string {
+    // Find the index of the last occurrence of backslash
+    const lastIndex = filePath.lastIndexOf('\\');
+
+    // Extract the substring after the last backslash
+    const imageName = filePath.substring(lastIndex + 1);
+
+    return imageName;
+  }
+
+  const handleFile = (e: React.FormEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement & {
+      files: FileList;
+    };
+
+    setFile(target.files[0]);
   };
 
   const onSubmit = (e: any) => {
@@ -37,24 +56,29 @@ export const ProductForm = () => {
 
     const newProduct: CreateProduct = {
       name: formData.name,
-      image: formData.image,
+      image: getImageName(e.target.image.value),
       stock: stockInt,
       price: priceInt,
       priceWithIva: formData.priceWithIva,
       location: formData.location
     };
 
-    console.log(newProduct);
-    createProduct(newProduct)
+    console.log(newProduct, file);
+
+    createProduct(newProduct, file)
       .then(() => {
-        console.log('Creating a product');
+        console.log('Product Created');
       })
       .catch((error) => console.error('Error creating product:', error));
   };
 
   return (
     <div className="justify-content-center">
-      <form onSubmit={onSubmit} action="" className="justify-content-center">
+      <form
+        onSubmit={onSubmit}
+        action="post"
+        className="justify-content-center"
+      >
         <div className="card flex">
           <InputText
             className="p-inputtext-lg"
@@ -67,33 +91,11 @@ export const ProductForm = () => {
           />
         </div>
         <div className="card flex">
-          <small id="name">Enter image name.</small>
+          <small id="name">Enter product name.</small>
         </div>
 
         <div className="card flex">
-          <InputText
-            className="p-inputtext-lg"
-            placeholder="Image"
-            name="image"
-            id="image"
-            value={formData.image}
-            onChange={handleChange}
-          />
-        </div>
-        <div className="card flex">
-          <small id="image">Enter image name.</small>
-        </div>
-
-        <div className="card flex">
-          <InputText
-            className="p-inputtext-lg"
-            placeholder="Image"
-            name="image-file"
-            id="image"
-            value={formData.image}
-            onChange={handleChange}
-            type="file"
-          />
+          <input type="file" name="image" onChange={handleFile} />
         </div>
         <div className="card flex">
           <small id="image">Enter image file.</small>
