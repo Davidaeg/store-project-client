@@ -22,7 +22,6 @@ export const ProductForm = () => {
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-    // Update the form data state with the sanitized value
     setFormData((prevData) => ({
       ...prevData,
       [name]: value
@@ -30,10 +29,8 @@ export const ProductForm = () => {
   };
 
   function getImageName(filePath: string): string {
-    // Find the index of the last occurrence of backslash
     const lastIndex = filePath.lastIndexOf('\\');
 
-    // Extract the substring after the last backslash
     const imageName = filePath.substring(lastIndex + 1);
 
     return imageName;
@@ -62,8 +59,6 @@ export const ProductForm = () => {
       priceWithIva: formData.priceWithIva,
       location: formData.location
     };
-
-    console.log(newProduct, file);
 
     createProduct(newProduct, file)
       .then(() => {
