@@ -12,11 +12,14 @@ export const useCreateProduct = () => {
     try {
       const resp = await storeService.post('/products', newProduct);
       setProductToCreate(resp.data as CreateProduct);
+
       if (imageFile) {
         const formData = new FormData();
-        formData.append('imageFile', imageFile);
+        formData.append('file', imageFile, imageFile.name);
 
-        await storeService.post('/products/upload', formData);
+        const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+
+        await storeService.post('/products/upload', formData, config);
       }
     } catch (error: any) {
       console.error('Error creating product:', error);
