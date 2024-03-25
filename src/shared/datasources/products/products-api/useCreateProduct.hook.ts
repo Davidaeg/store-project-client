@@ -8,11 +8,19 @@ export const useCreateProduct = () => {
     CreateProduct | undefined
   >();
 
-  const createProduct = async (newProduct: CreateProduct) => {
+  const createProduct = async (newProduct: CreateProduct, imageFile?: File) => {
     try {
       const resp = await storeService.post('/products', newProduct);
       setProductToCreate(resp.data as CreateProduct);
-      console.log('Product created:', resp.data);
+
+      if (imageFile) {
+        const formData = new FormData();
+        formData.append('file', imageFile, imageFile.name);
+
+        const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+
+        await storeService.post('/products/upload', formData, config);
+      }
     } catch (error: any) {
       console.error('Error creating product:', error);
       setError(
