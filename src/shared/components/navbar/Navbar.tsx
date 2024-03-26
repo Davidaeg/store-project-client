@@ -59,7 +59,7 @@ export const Navbar = () => {
       </button>
 
       <p>{user ? user.username.split('@')[0] : 'Guest'}</p>
-      <Avatar image="../../../../public/images/user.png" shape="circle" />
+      <Avatar image="/images/user.png" shape="circle" />
     </div>
   );
 
