@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import storeService from '../../store-service/storeService';
+import { storeService } from '../../store-service/storeService';
 import { ErrorResponse } from 'react-router-dom';
 import { User } from '../user.types';
 import { useModals } from '../../../hooks/modals/useModals.hook';

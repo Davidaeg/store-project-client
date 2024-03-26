@@ -1,25 +1,39 @@
 import { useState } from 'react';
 import { CreateProduct } from '../products.types';
-import storeService from '../../store-service/storeService';
+import {
+  cloudinaryService,
+  storeService
+} from '../../store-service/storeService';
 
 export const useCreateProduct = () => {
   const [error, setError] = useState<string>('');
-  const [productToCreate, setProductToCreate] = useState<
-    CreateProduct | undefined
-  >();
 
-  const createProduct = async (newProduct: CreateProduct, imageFile?: File) => {
+  const createProduct = async (newProduct: CreateProduct, imageFile: File) => {
     try {
-      const resp = await storeService.post('/products', newProduct);
-      setProductToCreate(resp.data as CreateProduct);
+      const formData = new FormData();
+      formData.append('file', imageFile, imageFile.name);
+      formData.append(
+        'upload_preset',
+        `${import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET}`
+      );
+      formData.append(
+        'cloud_name',
+        `${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}`
+      );
+      formData.append('folder', 'products');
 
-      if (imageFile) {
-        const formData = new FormData();
-        formData.append('file', imageFile, imageFile.name);
+      const result = await cloudinaryService.post(
+        `${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        formData
+      );
+      const resp = await storeService.post('/products', {
+        ...newProduct,
+        image: result.data.secure_url
+      });
 
-        const config = { headers: { 'Content-Type': 'multipart/form-data' } };
-
-        await storeService.post('/products/upload', formData, config);
+      if (resp.status === 201) {
+        console.log('Product created:', resp.data);
+        return true;
       }
     } catch (error: any) {
       console.error('Error creating product:', error);
@@ -27,13 +41,12 @@ export const useCreateProduct = () => {
         error.response?.data?.error ||
           'An error occurred while creating the product.'
       );
+      return false;
     }
   };
 
-  //this returns the object
   return {
     createProduct,
-    productToCreate,
     error
   };
 };

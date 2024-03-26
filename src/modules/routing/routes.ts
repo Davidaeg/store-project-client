@@ -4,7 +4,7 @@ import { RouteType } from './routes.types';
 import { Signup } from '../signup/Signup';
 import { Login } from '../login/Login';
 import { TempView } from '../tempViews/TempView';
-import { Form } from '../ProductForm/ProductForm';
+import { ProductsManagement } from '../Products/ProductManagement/ProductsManagement';
 import EmpSignup from '../empsignup/EmpSignup';
 
 export const appRoutes: RouteType[] = [
@@ -52,9 +52,9 @@ export const appRoutes: RouteType[] = [
   },
   {
     path: '/form',
-    name: 'Products Form',
+    name: 'Productos',
     icon: 'pi pi-pencil',
-    component: Form,
+    component: ProductsManagement,
     layout: '/admin'
   }
 ];

@@ -13,7 +13,7 @@ import useAudio from '../../shared/audio/useAudio.hook';
 const product: Product = {
   productId: 1,
   name: 'product1',
-  location: Location.Shelf1,
+  location: Location.Estante1,
   price: 100,
   image: 'image1',
   priceWithIva: 113,

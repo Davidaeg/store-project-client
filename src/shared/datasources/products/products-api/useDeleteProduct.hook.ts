@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Product } from '../products.types';
-import storeService from '../../store-service/storeService';
+import { storeService } from '../../store-service/storeService';
 
 export const useDeleteProduct = () => {
   const [error, setError] = useState<string>('');

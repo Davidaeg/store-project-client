@@ -8,7 +8,7 @@ export const ProductCard = (product: Product) => {
     <div className="border-1 surface-border border-round m-2 text-center py-5 px-3 product-card  ">
       <div className="mb-3">
         <img
-          src={`/images/${product.image}`}
+          src={`${product.image}`}
           alt={product.name}
           className="w-4 h-4 shadow-4  "
         />
