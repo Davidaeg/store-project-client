@@ -1,5 +1,6 @@
 import { TabPanel, TabView } from 'primereact/tabview';
 import { ProductForm } from './components/ProductForm/ProductForm';
+import ProductsList from './components/products-list/ProductsList';
 
 export const ProductsManagement = () => {
   return (
@@ -8,7 +9,7 @@ export const ProductsManagement = () => {
         <ProductForm />
       </TabPanel>
       <TabPanel header="Lista De Productos">
-        <h1>Lista de productos</h1>
+        <ProductsList />
       </TabPanel>
       <TabPanel header="Generar Pedido">
         <h1>Generar Pedido</h1>
