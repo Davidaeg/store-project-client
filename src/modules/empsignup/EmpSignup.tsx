@@ -8,24 +8,28 @@ import { useCreatePerson } from '../../shared/datasources/person/person-api/UseC
 import { useModals } from '../../shared/hooks/modals/useModals.hook';
 import { CreatePersonDto } from '../../shared/datasources/person/person.types';
 import '../empsignup/EmpSignup.Styles.css';
+import { UserType } from '../../shared/datasources/user/user.types';
 
-const defaultPerson: Person = {
+const defaultPerson = {
   name: '',
   firstLastName: '',
   secondLastName: '',
-  birthdate: new Date(),
+  birthday: new Date(),
   email: '',
-  phone: '',
+  phoneNumber: '',
   address: '',
   password: '',
-  userType: 'employee'
+  userType: UserType.EMPLOYEE
 };
 export default function EmpSignup() {
   const { createPerson } = useCreatePerson();
   const { showErrorModal, showSuccessModal } = useModals();
-  const [newPerson, setNewPerson] = useState<Person>({ ...defaultPerson });
+  const [newPerson, setNewPerson] = useState<CreatePersonDto>(defaultPerson);
 
-  const handleInputChange = (field: keyof Person, value: string | Date) => {
+  const handleInputChange = (
+    field: keyof CreatePersonDto,
+    value: string | Date
+  ) => {
     setNewPerson((prevState) => ({
       ...prevState,
       [field]: value
@@ -35,36 +39,15 @@ export default function EmpSignup() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const {
-      name,
-      firstLastName,
-      secondLastName,
-      birthdate,
-      email,
-      phone,
-      address,
-      password
-    } = newPerson;
-    const newPersonDto: CreatePersonDto = {
-      name,
-      firstLastName,
-      secondLastName,
-      birthday: birthdate,
-      email,
-      phoneNumber: phone,
-      address,
-      password,
-      userType: 'employee'
-    };
-    createPerson(newPersonDto)
+    createPerson(newPerson)
       .then(() => {
         console.log('Creating a person');
-        setNewPerson({ ...defaultPerson });
+        setNewPerson(defaultPerson);
         showSuccessModal();
       })
       .catch(({ error }) => {
         console.error('Error creating person:', error);
-        setNewPerson({ ...defaultPerson });
+        setNewPerson(defaultPerson);
         showErrorModal();
       });
   };
@@ -109,10 +92,10 @@ export default function EmpSignup() {
           <span className="p-float-label">
             <Calendar
               id="birthdate"
-              value={newPerson.birthdate}
+              value={newPerson.birthday}
               onChange={(e) =>
                 handleInputChange(
-                  'birthdate',
+                  'birthday',
                   e.value instanceof Date ? e.value : new Date()
                 )
               }
@@ -135,8 +118,8 @@ export default function EmpSignup() {
           <span className="p-float-label">
             <InputText
               id="phone"
-              value={newPerson.phone}
-              onChange={(e) => handleInputChange('phone', e.target.value)}
+              value={newPerson.phoneNumber}
+              onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
             />
             <label htmlFor="phone">Phone</label>
           </span>
