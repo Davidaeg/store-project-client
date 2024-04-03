@@ -6,6 +6,8 @@ import { Login } from '../login/Login';
 import { TempView } from '../tempViews/TempView';
 import { ProductsManagement } from '../products/ProductManagement/ProductsManagement';
 import EmpSignup from '../empsignup/EmpSignup';
+import { Order } from '../order/Order';
+
 
 export const appRoutes: RouteType[] = [
   {
@@ -55,6 +57,13 @@ export const appRoutes: RouteType[] = [
     name: 'Productos',
     icon: 'pi pi-pencil',
     component: ProductsManagement,
+    layout: '/admin'
+  },
+  {
+    path: '/order',
+    name: 'Pedidos',
+    icon: 'pi pi-folder-open',
+    component: Order,
     layout: '/admin'
   }
 ];
