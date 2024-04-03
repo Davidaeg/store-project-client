@@ -1,0 +1,17 @@
+.modal-button{
+ background-color: #ff9800; 
+ color: #fff; 
+ border-radius:20px;
+ margin: 5px;
+}
+
+.modal-button.p-button:focus,
+.p-button:active {
+
+    box-shadow: 0 0 0 2px rgba(255, 100, 0, 0.5);
+}
+
+.p-dialog .p-dialog-header {
+    text-align: center;
+}
+
