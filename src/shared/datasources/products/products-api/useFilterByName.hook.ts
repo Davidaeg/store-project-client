@@ -2,16 +2,16 @@ import { useState } from 'react';
 import { Product } from '../products.types';
 import { storeService } from '../../store-service/storeService';
 
-export const useGetProductById = () => {
-  const [error, setError] = useState<string>('');
-  const [currentPoduct, setCurrentProduct] = useState<Product>();
+export const useFilterByName = () => {
+  const [errorByName, setError] = useState<string>('');
+  const [currentPoductsByName, setCurrentProducts] = useState<Product>();
 
-  const getProductByID = async (id: number) => {
+  const filterProductsByName = async (name: String) => {
     try {
       await storeService
-        .get(`/products/${id}`)
+        .get(`/products/search/${name}`)
         .then((resp) => {
-          setCurrentProduct(resp.data as Product);
+          setCurrentProducts(resp.data as Product);
         })
         .catch((e) => {
           setError(e.message);
@@ -23,8 +23,8 @@ export const useGetProductById = () => {
   };
 
   return {
-    getProductByID,
-    currentPoduct,
-    error
+    filterProductsByName,
+    currentPoductsByName,
+    errorByName
   };
 };

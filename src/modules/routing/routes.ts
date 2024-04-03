@@ -1,10 +1,11 @@
 import { Home } from '../home/Home';
-import { Products } from '../Products/Products';
+import { Products } from '../products/Products';
 import { RouteType } from './routes.types';
 import { Signup } from '../signup/Signup';
 import { Login } from '../login/Login';
 import { TempView } from '../tempViews/TempView';
-import { Form } from '../ProductForm/ProductForm';
+import { ProductsManagement } from '../products/ProductManagement/ProductsManagement';
+import EmpSignup from '../empsignup/EmpSignup';
 
 export const appRoutes: RouteType[] = [
   {
@@ -43,10 +44,17 @@ export const appRoutes: RouteType[] = [
     layout: '/admin'
   },
   {
+    path: '/empsignup',
+    name: 'Signup',
+    icon: 'pi pi-user',
+    component: EmpSignup,
+    layout: '/admin'
+  },
+  {
     path: '/form',
-    name: 'Products Form',
+    name: 'Productos',
     icon: 'pi pi-pencil',
-    component: Form,
-    layout: '/store'
+    component: ProductsManagement,
+    layout: '/admin'
   }
 ];

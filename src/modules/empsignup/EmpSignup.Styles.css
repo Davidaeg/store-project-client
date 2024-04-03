@@ -1,0 +1,68 @@
+.form-empSignup {
+  width: 500px;
+  margin: 40px auto;
+  background-image: url('/images/Fondo.webp');
+}
+.form-empSignup .p-card-title {
+  text-align: center;
+}
+
+.form-empSignup .p-field {
+  margin-bottom: 1.5rem;
+}
+
+.form-empSignup .logo-container {
+  text-align: center;
+}
+
+.form-empSignup .p-inputtext {
+  border: 2px solid #fba855;
+}
+
+.form-empSignup .p-inputtext:focus {
+  border-color: #fbd59e;
+  box-shadow: 0 0 0 2px #fbd59e;
+  outline: none;
+}
+.form-empSignup .p-button-signup .p-button:focus,
+.p-button:active {
+  border-color: #ff6400;
+  box-shadow: 0 0 0 2px rgba(255, 100, 0, 0.5);
+}
+
+.form-empSignup .p-button {
+  background-color: #ff6400;
+  color: #ffffff;
+  border: none;
+}
+
+.form-empSignup a {
+  text-decoration: none;
+  color: #ff6400;
+}
+
+.form-empSignup .p-card-content {
+  background-color: rgba(255, 166, 77, 0.3);
+  padding: 2rem;
+}
+
+.form-empSignup .p-inputtextarea {
+  width: 400px;
+  height: 55px;
+  border: 2px solid #fba855;
+}
+
+.form-empSignup .p-inputtextarea:focus {
+  border-color: #fbd59e;
+  box-shadow: 0 0 0 2px #fbd59e;
+  outline: none;
+}
+.form-empSignup .p-float-label {
+  width: 400px;
+  height: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  display: block;
+}

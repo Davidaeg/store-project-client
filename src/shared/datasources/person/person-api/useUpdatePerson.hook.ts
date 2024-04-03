@@ -1,17 +1,17 @@
 import { useState } from 'react';
-import { Product } from '../products.types';
+import { Person } from '../person.types';
 import { storeService } from '../../store-service/storeService';
 
-export const useGetProductById = () => {
+export const useUpdatePerson = () => {
   const [error, setError] = useState<string>('');
-  const [currentPoduct, setCurrentProduct] = useState<Product>();
+  const [personToUpdate, setPersonToUpdate] = useState<Person>();
 
-  const getProductByID = async (id: number) => {
+  const updatePerson = async (id: number, newInfo: Partial<Person>) => {
     try {
       await storeService
-        .get(`/products/${id}`)
+        .patch(`/Person${id}`, newInfo)
         .then((resp) => {
-          setCurrentProduct(resp.data as Product);
+          setPersonToUpdate(resp.data as Person);
         })
         .catch((e) => {
           setError(e.message);
@@ -23,8 +23,8 @@ export const useGetProductById = () => {
   };
 
   return {
-    getProductByID,
-    currentPoduct,
+    updatePerson,
+    personToUpdate,
     error
   };
 };

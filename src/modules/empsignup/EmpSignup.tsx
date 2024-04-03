@@ -4,11 +4,11 @@ import { Card } from 'primereact/card';
 import { Calendar } from 'primereact/calendar';
 import { InputTextarea } from 'primereact/inputtextarea';
 import { Button } from 'primereact/button';
-import { useCreatePerson } from '../../../../shared/datasources/person/person-api/UseCreatePerson.hook';
-import { CreatePersonDto } from '../../../../shared/datasources/person/person.types';
-import { useModals } from '../../../../shared/hooks/modals/useModals.hook';
-import './FormSignup.Styles.css';
-import { UserType } from '../../../../shared/datasources/user/user.types';
+import { useCreatePerson } from '../../shared/datasources/person/person-api/UseCreatePerson.hook';
+import { useModals } from '../../shared/hooks/modals/useModals.hook';
+import { CreatePersonDto } from '../../shared/datasources/person/person.types';
+import '../empsignup/EmpSignup.Styles.css';
+import { UserType } from '../../shared/datasources/user/user.types';
 
 const defaultPerson = {
   name: '',
@@ -19,14 +19,12 @@ const defaultPerson = {
   phoneNumber: '',
   address: '',
   password: '',
-  userType: UserType.CUSTOMER
+  userType: UserType.EMPLOYEE
 };
-export default function FormSignup() {
+export default function EmpSignup() {
   const { createPerson } = useCreatePerson();
   const { showErrorModal, showSuccessModal } = useModals();
-  const [newPerson, setNewPerson] = useState<CreatePersonDto>({
-    ...defaultPerson
-  });
+  const [newPerson, setNewPerson] = useState<CreatePersonDto>(defaultPerson);
 
   const handleInputChange = (
     field: keyof CreatePersonDto,
@@ -41,25 +39,20 @@ export default function FormSignup() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const newPersonDto: CreatePersonDto = {
-      ...newPerson,
-      userType: UserType.CUSTOMER
-    };
-
-    createPerson(newPersonDto)
+    createPerson(newPerson)
       .then(() => {
         console.log('Creating a person');
-        setNewPerson({ ...defaultPerson });
+        setNewPerson(defaultPerson);
         showSuccessModal();
       })
       .catch(({ error }) => {
         console.error('Error creating person:', error);
-        setNewPerson({ ...defaultPerson });
+        setNewPerson(defaultPerson);
         showErrorModal();
       });
   };
   return (
-    <Card title="Sign Up" className="form-signup">
+    <Card title="Sign Up" className="form-empSignup">
       <div className="p-fluid">
         <div className="p-field">
           <span className="p-float-label">
@@ -124,7 +117,7 @@ export default function FormSignup() {
         <div className="p-field">
           <span className="p-float-label">
             <InputText
-              id="phoneNumber"
+              id="phone"
               value={newPerson.phoneNumber}
               onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
             />

@@ -1,17 +1,17 @@
 import { useState } from 'react';
-import { Product } from '../products.types';
+import { Person } from '../person.types';
 import { storeService } from '../../store-service/storeService';
 
-export const useGetProductById = () => {
+export const useGetPersonById = () => {
   const [error, setError] = useState<string>('');
-  const [currentPoduct, setCurrentProduct] = useState<Product>();
+  const [currentPerson, setCurrentPerson] = useState<Person>();
 
-  const getProductByID = async (id: number) => {
+  const getPersonByID = async (id: number) => {
     try {
       await storeService
-        .get(`/products/${id}`)
+        .get(`/Person${id}`)
         .then((resp) => {
-          setCurrentProduct(resp.data as Product);
+          setCurrentPerson(resp.data as Person);
         })
         .catch((e) => {
           setError(e.message);
@@ -23,8 +23,8 @@ export const useGetProductById = () => {
   };
 
   return {
-    getProductByID,
-    currentPoduct,
+    getPersonByID,
+    currentPerson,
     error
   };
 };
