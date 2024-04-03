@@ -7,11 +7,11 @@ import { Order } from '../types/Types';
 import { Toast } from 'primereact/toast';
 import '../modals/Modals.css';
 
-type ModalProps = {
+interface ModalProps {
   order: Order;
   onChangeState?: (newState: OrderStatus) => void;
   onClose: () => void;
-};
+}
 
 const ChangeStateModal = ({ order, onChangeState }: ModalProps) => {
   const [isVisible, setIsVisible] = useState(false);

@@ -6,10 +6,10 @@ import { Column } from 'primereact/column';
 import { Order} from '../types/Types';
 import '../modals/Modals.css'
 
-type ModalProps = {
+interface ModalProps {
   order: Order;
   onClose: () => void;
-};
+}
 
 const DetailsModal = ({ order }: ModalProps) => {
   const [isVisible, setIsVisible] = useState(false);
