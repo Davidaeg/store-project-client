@@ -1,12 +1,12 @@
 import { Home } from '../home/Home';
-import { Products } from '../products/Products';
 import { RouteType } from './routes.types';
 import { Signup } from '../signup/Signup';
 import { Login } from '../login/Login';
 import { TempView } from '../tempViews/TempView';
-import { ProductsManagement } from '../products/productManagement/ProductsManagement';
 import EmpSignup from '../empsignup/EmpSignup';
 import { Order } from '../order/Order';
+import { Products } from '../products/Products';
+import { ProductsManagement } from '../products/productManagement/ProductsManagement';
 
 export const appRoutes: RouteType[] = [
   {
