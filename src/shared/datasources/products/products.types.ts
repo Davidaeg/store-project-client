@@ -21,6 +21,11 @@ export interface Product {
   location: Location;
 }
 
+export interface ProductDetail {
+  name: string;
+  price: number;
+}
+
 export interface CreateProduct {
   name: string;
   image: string;
