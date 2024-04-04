@@ -4,10 +4,9 @@ import { RouteType } from './routes.types';
 import { Signup } from '../signup/Signup';
 import { Login } from '../login/Login';
 import { TempView } from '../tempViews/TempView';
-import { ProductsManagement } from '../products/ProductManagement/ProductsManagement';
+import { ProductsManagement } from '../products/productManagement/ProductsManagement';
 import EmpSignup from '../empsignup/EmpSignup';
 import { Order } from '../order/Order';
-
 
 export const appRoutes: RouteType[] = [
   {

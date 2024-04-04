@@ -1,6 +1,6 @@
 import { TabPanel, TabView } from 'primereact/tabview';
-import { ProductForm } from './components/ProductForm/ProductForm';
-import ProductsList from './components/products-list/ProductsList';
+import { ProductForm } from './components/productForm/ProductForm';
+import ProductsList from './components/productsList/ProductsList';
 
 export const ProductsManagement = () => {
   return (
