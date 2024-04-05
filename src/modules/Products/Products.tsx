@@ -53,7 +53,7 @@ export const Products = () => {
   return (
     <Panel header="Products">
       <div className="grid justify-content-center">
-        <div className="card flex justify-content-center">
+        <div className="card flex justify-content-center grid">
           <div className="dropdown-container">
             <small id="username-help">Sort Items by price</small>
             <Dropdown

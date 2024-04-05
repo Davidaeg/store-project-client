@@ -19,7 +19,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
 
   return (
     <div className="grid nested-grid mb-3">
-      <div className="col-2 bg-gray-200">
+      <div className="lg:col-2 bg-gray-200">
         <div className="text-center">
           <img
             style={{ width: '125px', height: '150px', objectFit: 'cover' }}
@@ -28,9 +28,9 @@ export function CartItem({ id, quantity }: CartItemProps) {
           />
         </div>
       </div>
-      <div className="col-2 bg-gray-200">
+      <div className="col-4  lg:col-2 xl:col-1 bg-gray-200">
         <div className="grid">
-          <div className="col-12">
+          <div className="col-12 ">
             <div className=" p-3 border-round-sm font-bold">
               {currentPoduct?.name}{' '}
               {quantity > 1 && (
@@ -51,13 +51,13 @@ export function CartItem({ id, quantity }: CartItemProps) {
           </div>
         </div>
       </div>
-      <div className="col-2 bg-gray-200">
+      <div className="lg:col-2 bg-gray-200">
         <div className="mt-6">
           <Button
             style={{ background: '#fba855', border: '#fba855' }}
             icon="pi pi-minus"
             rounded
-            className="ml-1"
+            className="ml-1 mr-5 lg:mr-0"
             label="remove"
             onClick={() =>
               decreaseCartQuantity(
