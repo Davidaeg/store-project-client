@@ -8,8 +8,11 @@ import './Navbar.styles.css';
 import { useContext, useEffect, useState } from 'react';
 import { AuthenticationContext } from '../../../modules/auth/Authentication.context';
 import { UserType } from '../../datasources/user/user.types';
+import { Button } from 'primereact/button';
+import { useShoppingCart } from '../../../context/shoppingCartContext';
 
 export const Navbar = () => {
+  const { openCart } = useShoppingCart();
   const { user, logout } = useContext(AuthenticationContext);
   const navigate = useNavigate();
   const [items, setItems] = useState<MenuItem[]>([]);
@@ -48,7 +51,7 @@ export const Navbar = () => {
         onClick={() => logout()}
       >
         {' '}
-        {user?.userType === UserType.GUEST ? 'login' : 'logout'}{' '}
+        {user?.userType === UserType.GUEST ? null : 'logout'}{' '}
       </button>
 
       <p>{user ? user.username.split('@')[0] : 'Guest'}</p>
