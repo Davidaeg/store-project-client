@@ -1,6 +1,5 @@
 import { Panel } from 'primereact/panel';
 import { useShoppingCart } from '../../../context/shoppingCartContext';
-import { Stack } from 'react-bootstrap';
 import { CartItem } from '../CartItem';
 
 export const ShoppingCart = () => {
@@ -13,14 +12,11 @@ export const ShoppingCart = () => {
       return total + item!.price * cartItem.quantity;
     }, 0);
   }
-  //TODO
   return (
     <Panel header={`Cart Total: $` + totalInCart()}>
-      <Stack gap={5}>
-        {cartItems.map((item) => (
-          <CartItem key={item.id} {...item} />
-        ))}
-      </Stack>
+      {cartItems.map((item) => (
+        <CartItem key={item.id} {...item} />
+      ))}
     </Panel>
   );
 };

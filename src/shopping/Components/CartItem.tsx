@@ -23,7 +23,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
         <div className="text-center">
           <img
             style={{ width: '125px', height: '150px', objectFit: 'cover' }}
-            src={`/images/${currentPoduct?.image}`}
+            src={currentPoduct?.image}
             alt="item-image"
           />
         </div>
