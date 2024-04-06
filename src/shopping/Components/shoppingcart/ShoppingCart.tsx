@@ -13,7 +13,7 @@ export const ShoppingCart = () => {
       return total + item!.price * cartItem.quantity;
     }, 0);
   }
-
+  //TODO
   return (
     <Panel header={`Cart Total: $` + totalInCart()}>
       <Stack gap={5}>
