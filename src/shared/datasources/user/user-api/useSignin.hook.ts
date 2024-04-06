@@ -1,9 +1,11 @@
 import { useState } from 'react';
-import storeService from '../../store-service/storeService';
+import { storeService } from '../../store-service/storeService';
 import { ErrorResponse } from 'react-router-dom';
 import { User } from '../user.types';
+import { useModals } from '../../../hooks/modals/useModals.hook';
 
 export const useSignin = () => {
+  const { showErrorModal } = useModals();
   const [error, setError] = useState<string>('');
 
   const signin = async (
@@ -20,7 +22,10 @@ export const useSignin = () => {
     } catch (error: any) {
       console.error('Error signing in:', error);
       if (error.response && error.response.status === 401) {
-        setError('Invalid email or password');
+        showErrorModal(
+          'Error!',
+          'Correo electrónico o contraseña incorrectos.'
+        );
       } else {
         const errorMessage =
           (error.response && (error.response.data as ErrorResponse)) ||

@@ -13,7 +13,7 @@ import useAudio from '../../shared/audio/useAudio.hook';
 const product: Product = {
   productId: 1,
   name: 'product1',
-  location: Location.Shelf1,
+  location: Location.Estante1,
   price: 100,
   image: 'image1',
   priceWithIva: 113,
@@ -24,7 +24,7 @@ type ProductItem = { productId: number; quantity: number };
 
 export const TempView = () => {
   const { play } = useAudio('/audios/beep.mp3');
-  const [data, setData] = useState<ProductItem[]>([]);
+  const [_data, setData] = useState<ProductItem[]>([]);
 
   const onDetected = (result: QuaggaJSResultObject) => {
     const code = result.codeResult.code;

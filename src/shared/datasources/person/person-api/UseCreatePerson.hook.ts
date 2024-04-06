@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { CreatePersonDto } from '../person.types';
-import storeService from '../../store-service/storeService';
+import { storeService } from '../../store-service/storeService';
 
 export const useCreatePerson = () => {
   const [error, setError] = useState<string>('');
