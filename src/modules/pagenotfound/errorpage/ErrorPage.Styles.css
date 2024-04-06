@@ -1,0 +1,32 @@
+.error-card {
+    background-color: #da76189f;
+    width: 100%;
+   
+}
+
+.image-container {
+    margin:  0;
+}
+  
+.error-image {
+    width: 55%;
+    margin-top:-7rem;
+}
+.error-text {
+    margin-top:-8rem; 
+    color:white ;
+}
+.home-button{
+
+    color: white;
+}
+@media only screen and (max-width: 768px) {
+    .error-image {
+        width: 80%; 
+        margin-top: -5rem; 
+    }
+
+    .error-text {
+        margin-top: -3rem; 
+    }
+}

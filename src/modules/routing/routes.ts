@@ -7,6 +7,7 @@ import EmpSignup from '../empsignup/EmpSignup';
 import { Order } from '../order/Order';
 import { Products } from '../products/Products';
 import { ProductsManagement } from '../products/productManagement/ProductsManagement';
+import { PageNotFound } from '../pagenotfound/PageNotFound';
 
 export const appRoutes: RouteType[] = [
   {
@@ -64,5 +65,12 @@ export const appRoutes: RouteType[] = [
     icon: 'pi pi-folder-open',
     component: Order,
     layout: '/admin'
+  },
+  {
+    path: '/pagenotfound',
+    name: 'Error',
+    icon: 'pi pi-folder-open',
+    component: PageNotFound,
+    layout: '/store'
   }
 ];
