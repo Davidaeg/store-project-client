@@ -4,6 +4,7 @@ import { Signup } from '../signup/Signup';
 import { Login } from '../login/Login';
 import { TempView } from '../tempViews/TempView';
 import EmpSignup from '../empsignup/EmpSignup';
+import { ShoppingCart } from '../../shopping/Components/shoppingcart/ShoppingCart';
 import { Order } from '../order/Order';
 import { Products } from '../products/Products';
 import { ProductsManagement } from '../products/productManagement/ProductsManagement';
@@ -35,6 +36,13 @@ export const appRoutes: RouteType[] = [
     name: 'Login',
     icon: 'pi pi-user',
     component: Login,
+    layout: '/store'
+  },
+  {
+    path: '/shopping',
+    name: 'shoppingCart',
+    icon: 'pi pi-cart-plus',
+    component: ShoppingCart,
     layout: '/store'
   },
   {

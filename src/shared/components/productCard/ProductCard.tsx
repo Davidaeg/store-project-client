@@ -2,23 +2,59 @@ import { Button } from 'primereact/button';
 import { Product } from '../../datasources/products/products.types';
 import '../../../modules/home/components/carrousel/Carrousel.styles.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
+import { useShoppingCart } from '../../../context/shoppingCartContext';
 
 export const ProductCard = (product: Product) => {
+  const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity } =
+    useShoppingCart();
+  const quantity = getItemQuantity(product.productId);
+
   return (
-    <div className="border-1 surface-border border-round m-2 text-center py-5 px-3 product-card  ">
-      <div className="mb-3">
+    <div className="border-1 surface-border border-round m-2 text-center py-5 px-3 product-card">
+      <div>
         <img
           src={`${product.image}`}
           alt={product.name}
-          className="w-4 h-4 shadow-4  "
+          className="w-4 h-4 shadow-4 "
         />
       </div>
       <div>
         <h4 className="mb-1">{product.name}</h4>
-        <h6 className="mt-0 mb-3">${product.price}</h6>
-        <div className="mt-5 flex flex-wrap gap-2 justify-content-center">
-          <Button className="search-button" icon="pi pi-search" rounded />
-          <Button icon="pi pi-shopping-cart" rounded />
+        <h6 className="mt-0 mb-1">${product.price}</h6>
+        <div className="mt-auto">
+          {quantity === 0 ? (
+            <Button
+              style={{ background: '#fba855', border: '#fba855' }}
+              icon="pi pi-cart-plus"
+              rounded
+              label="Add to Cart"
+              onClick={() =>
+                increaseCartQuantity(product.productId, product.price)
+              }
+            />
+          ) : (
+            <div className="d-flex align-content-center justify-content-center">
+              <div>{quantity}</div>
+              <Button
+                style={{ background: '#fba855', border: '#fba855' }}
+                icon="pi pi-minus"
+                rounded
+                className="mr-1"
+                onClick={() =>
+                  decreaseCartQuantity(product.productId, product.price)
+                }
+              />
+              <Button
+                style={{ background: '#fba855', border: '#fba855' }}
+                icon="pi pi-plus"
+                rounded
+                className="ml-1"
+                onClick={() =>
+                  increaseCartQuantity(product.productId, product.price)
+                }
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>
