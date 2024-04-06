@@ -1,7 +1,7 @@
 import { Panel } from 'primereact/panel';
 import { useEffect, useState } from 'react';
 import { ProductCard } from '../../shared/components/productCard/ProductCard';
-import '../products/ProductsStyles.css';
+import _styles from '../Products/ProductsStyles.css';
 
 import { useProductFilter } from '../../shared/datasources/products/products-api/useProductFilter.hook';
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown';
