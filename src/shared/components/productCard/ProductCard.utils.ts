@@ -1,17 +1,13 @@
 import { Product } from '../../datasources/products/products.types';
 
 export const getSeverity = (product: Product) => {
-  switch (product.inventoryStatus) {
-    case 'INSTOCK':
-      return 'success';
+  const stockStatus = product.stock > 0 ? 'INSTOCK' : 'OUTOFSTOCK';
 
-    case 'LOWSTOCK':
-      return 'warning';
+  const severityMap = {
+    INSTOCK: 'INSTOCK',
+    LOWSTOCK: 'LOWSTOCK',
+    OUTOFSTOCK: 'OUTOFSTOCK'
+  };
 
-    case 'OUTOFSTOCK':
-      return 'danger';
-
-    default:
-      return null;
-  }
+  return severityMap[stockStatus] || null;
 };

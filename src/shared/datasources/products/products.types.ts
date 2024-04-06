@@ -1,8 +1,15 @@
 export enum Location {
-  Shelf1 = 'Shelf1',
-  Shelf2 = 'Shelf2',
-  Shelf3 = 'Shelf3'
+  Estante1 = 'Shelf1',
+  Estante2 = 'Shelf2',
+  Estante3 = 'Shelf3'
 }
+
+export const locationsOptions = Object.entries(Location).map(
+  ([label, value]) => ({
+    label,
+    value
+  })
+);
 
 export interface Product {
   productId: number;
@@ -12,6 +19,11 @@ export interface Product {
   price: number;
   priceWithIva: number;
   location: Location;
+}
+
+export interface ProductDetail {
+  name: string;
+  price: number;
 }
 
 export interface CreateProduct {

@@ -10,11 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@cloudinary/react": "^1.13.0",
+    "@cloudinary/url-gen": "^1.19.0",
     "@ericblade/quagga2": "^1.8.4",
     "@types/": "ericblade/quagga2",
     "@types/howler": "^2.2.11",
     "axios": "1.6.7",
-    "bootstrap": "^5.3.3",
+    "cloudinary": "^2.0.3",
     "dotenv": "16.4.1",
     "howler": "^2.2.4",
     "luxon": "3.4.4",
@@ -28,7 +30,7 @@
     "react-dom": "18.2.0",
     "react-router-dom": "6.21.3",
     "sweetalert2": "11.10.4",
-    "vite-tsconfig-paths": "^4.3.1"
+    "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/react": "18.2.43",

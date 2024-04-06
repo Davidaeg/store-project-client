@@ -1,12 +1,13 @@
 import { Home } from '../home/Home';
-import { Products } from '../Products/Products';
 import { RouteType } from './routes.types';
 import { Signup } from '../signup/Signup';
 import { Login } from '../login/Login';
 import { TempView } from '../tempViews/TempView';
-import { Form } from '../ProductForm/ProductForm';
 import EmpSignup from '../empsignup/EmpSignup';
 import { ShoppingCart } from '../../shopping/Components/shoppingcart/ShoppingCart';
+import { Order } from '../order/Order';
+import { Products } from '../products/Products';
+import { ProductsManagement } from '../products/productManagement/ProductsManagement';
 
 export const appRoutes: RouteType[] = [
   {
@@ -60,9 +61,16 @@ export const appRoutes: RouteType[] = [
   },
   {
     path: '/form',
-    name: 'Products Form',
+    name: 'Productos',
     icon: 'pi pi-pencil',
-    component: Form,
+    component: ProductsManagement,
+    layout: '/admin'
+  },
+  {
+    path: '/order',
+    name: 'Pedidos',
+    icon: 'pi pi-folder-open',
+    component: Order,
     layout: '/admin'
   }
 ];
