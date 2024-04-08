@@ -71,7 +71,12 @@ export const Products = () => {
               value={searchByName}
               onChange={(e) => setSearchByName(e.target.value)}
             />
-            <Button label="Search" icon="pi pi-search" onClick={handleSearch} />
+            <Button
+              label="Search"
+              icon="pi pi-search"
+              onClick={handleSearch}
+              style={{ background: '#fba855', border: '#fba855' }}
+            />
           </div>
         </div>
       </div>
