@@ -3,6 +3,6 @@ export type RouteType = {
   name: string;
   icon: string;
   component: () => React.JSX.Element;
-  layout: string;
+  layout: string | string[];
   upgrade?: boolean;
 };

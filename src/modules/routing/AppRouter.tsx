@@ -2,25 +2,20 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { appRoutes } from './routes';
 import { useContext } from 'react';
 import { AuthenticationContext } from '../auth/Authentication.context';
-import { Home } from '../home/Home';
-import { TempView } from '../tempViews/TempView';
 import { PageNotFound } from '../pagenotfound/PageNotFound';
 
 const userTypeComponents: Record<string, JSX.Element> = {
-  customer: <Home />,
-  employee: <TempView />
+  customer: <Navigate to="/store/home" />,
+  employee: <Navigate to="/admin/sale" />,
+  guest: <Navigate to="/store/home" />
 };
+
 export const AppRouter = () => {
   const { user } = useContext(AuthenticationContext);
 
   const initialComponent = () => {
-    return (
-      userTypeComponents[user?.userType || 'Guest'] || (
-        <Navigate to="/store/home" />
-      )
-    );
+    return userTypeComponents[user?.userType || 'guest'];
   };
-
   return (
     <Routes>
       <>
@@ -36,6 +31,7 @@ export const AppRouter = () => {
           }
         })}
         <Route path="/*" element={initialComponent()} />
+        <Route path="*" element={<PageNotFound />} />
       </>
     </Routes>
   );

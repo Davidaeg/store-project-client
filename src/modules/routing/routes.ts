@@ -79,6 +79,6 @@ export const appRoutes: RouteType[] = [
     name: 'Error',
     icon: 'pi pi-folder-open',
     component: PageNotFound,
-    layout: '/store'
+    layout: ['/store', '/admin']
   }
 ];
