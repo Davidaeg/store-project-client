@@ -1,4 +1,4 @@
-import  { useState, ChangeEvent, useEffect } from 'react';
+import  { useState, ChangeEvent} from 'react';
 import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -23,7 +23,7 @@ const PaymentForm = () => {
 
   const handleConfirmPayment = () => {
     const validation = PaymentSchema.safeParse(formData);
-    if (validation) {
+    if (validation.success) {
       showSuccessModal('Pago exitoso', 'Se ha confirmado el pago correctamente.');
       setFormData(Data);
       console.log('Pago exitoso:', formData); 
@@ -62,7 +62,7 @@ const PaymentForm = () => {
         <div className="field-group">
           <div className="field" style={{ marginTop: '15px' }}>
             <span className="p-float-label p-input-icon-right">
-              <i className="pi pi-calendar" />
+              <i className="custom-input" />
               <Calendar
                 id="expiredDate"
                 className="ExpireDate"
@@ -78,7 +78,7 @@ const PaymentForm = () => {
               <i className="pi pi-question" />
               <InputText
                 id="securityCode"
-                className="SecurityCode"
+                className="security-code"
                 value={formData.securityCode}
                 onChange={(e) => handleInputChange(e, 'securityCode')}
               />
@@ -86,7 +86,7 @@ const PaymentForm = () => {
             </span>
           </div>
         </div>
-        <Button label="Confirmar pago" className="btnConfirmar" onClick={handleConfirmPayment} />
+        <Button label="Confirmar pago" className="confirm-button" onClick={handleConfirmPayment} />
       </Card>
     </div>
   );
