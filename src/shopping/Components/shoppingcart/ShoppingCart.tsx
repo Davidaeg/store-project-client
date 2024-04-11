@@ -1,6 +1,7 @@
 import { Panel } from 'primereact/panel';
 import { useShoppingCart } from '../../../context/shoppingCartContext';
 import { CartItem } from '../CartItem';
+import EmptyCartMessage from '../EmptyCart';
 
 export const ShoppingCart = () => {
   const { cartItems, currentPoducts } = useShoppingCart();
@@ -13,10 +14,16 @@ export const ShoppingCart = () => {
     }, 0);
   }
   return (
-    <Panel header={`Cart Total: $` + totalInCart()}>
-      {cartItems.map((item) => (
-        <CartItem key={item.id} {...item} />
-      ))}
+    <Panel header={`Cart Total: $` + totalInCart().toFixed(2)}>
+      <div>
+        {cartItems.length === 0 ? (
+          <div style={{ margin: '10% 0 50% 0' }}>
+            <EmptyCartMessage />
+          </div>
+        ) : (
+          cartItems.map((item) => <CartItem key={item.id} {...item} />)
+        )}
+      </div>
     </Panel>
   );
 };
