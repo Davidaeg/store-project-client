@@ -35,7 +35,7 @@ export default function ProductsList() {
     price: 0,
     quantity: 0,
     rating: 0,
-    inventoryStatus: 'INSTOCK'
+    inventoryStatus: 'EN INVENTARIO'
   };
   const { getAllProductsForList } = useGetAllProducts();
 
@@ -57,9 +57,9 @@ export default function ProductsList() {
   }, []);
 
   const formatCurrency = (value: number) => {
-    return value.toLocaleString('en-US', {
+    return value.toLocaleString('es-CR', {
       style: 'currency',
-      currency: 'USD'
+      currency: 'CRC'
     });
   };
 
@@ -96,7 +96,7 @@ export default function ProductsList() {
         toast.current?.show({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Product Updated',
+          detail: 'Producto actualizado',
           life: 3000
         });
       } else {
@@ -105,7 +105,7 @@ export default function ProductsList() {
         toast.current?.show({
           severity: 'success',
           summary: 'Successful',
-          detail: 'Product Created',
+          detail: 'Producto Creado',
           life: 3000
         });
       }
@@ -135,7 +135,7 @@ export default function ProductsList() {
     toast.current?.show({
       severity: 'success',
       summary: 'Successful',
-      detail: 'Product Deleted',
+      detail: 'Producto eliminado',
       life: 3000
     });
   };
@@ -170,7 +170,7 @@ export default function ProductsList() {
     toast.current?.show({
       severity: 'success',
       summary: 'Successful',
-      detail: 'Products Deleted',
+      detail: 'Productos eliminados',
       life: 3000
     });
   };
@@ -205,13 +205,13 @@ export default function ProductsList() {
     return (
       <div className="flex flex-wrap gap-2">
         <Button
-          label="New"
+          label="Nuevo"
           icon="pi pi-plus"
           severity="success"
           onClick={openNew}
         />
         <Button
-          label="Delete"
+          label="Eliminar"
           icon="pi pi-trash"
           severity="danger"
           onClick={confirmDeleteSelected}
@@ -224,7 +224,7 @@ export default function ProductsList() {
   const rightToolbarTemplate = () => {
     return (
       <Button
-        label="Export"
+        label="Exportar"
         icon="pi pi-upload"
         className="p-button-help"
         onClick={exportCSV}
@@ -299,12 +299,12 @@ export default function ProductsList() {
 
   const header = (
     <div className="flex flex-wrap gap-2 align-items-center justify-content-between">
-      <h4 className="m-0">Manage Products</h4>
+      <h4 className="m-0">Gestionar productos</h4>
       <span className="p-input-icon-left">
         <i className="pi pi-search" />
         <InputText
           type="search"
-          placeholder="Search..."
+          placeholder="Buscar..."
           onInput={(e) => {
             const target = e.target as HTMLInputElement;
             setGlobalFilter(target.value);
@@ -315,8 +315,8 @@ export default function ProductsList() {
   );
   const productDialogFooter = (
     <React.Fragment>
-      <Button label="Cancel" icon="pi pi-times" outlined onClick={hideDialog} />
-      <Button label="Save" icon="pi pi-check" onClick={saveProduct} />
+      <Button label="Cancelar" icon="pi pi-times" outlined onClick={hideDialog} />
+      <Button label="Guardar" icon="pi pi-check" onClick={saveProduct} />
     </React.Fragment>
   );
   const deleteProductDialogFooter = (
@@ -328,7 +328,7 @@ export default function ProductsList() {
         onClick={hideDeleteProductDialog}
       />
       <Button
-        label="Yes"
+        label="Si"
         icon="pi pi-check"
         severity="danger"
         onClick={deleteProduct}
@@ -344,7 +344,7 @@ export default function ProductsList() {
         onClick={hideDeleteProductsDialog}
       />
       <Button
-        label="Yes"
+        label="Si"
         icon="pi pi-check"
         severity="danger"
         onClick={deleteSelectedProducts}
@@ -376,7 +376,7 @@ export default function ProductsList() {
           rows={10}
           rowsPerPageOptions={[5, 10, 25]}
           paginatorTemplate="FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink CurrentPageReport RowsPerPageDropdown"
-          currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
+          currentPageReportTemplate="Mostrando {first}  a {last} de {totalRecords} productos"
           globalFilter={globalFilter}
           header={header}
           selectionMode="multiple"
@@ -384,44 +384,44 @@ export default function ProductsList() {
           <Column selectionMode="multiple" exportable={false}></Column>
           <Column
             field="code"
-            header="Code"
+            header="Codigo"
             sortable
             style={{ minWidth: '12rem' }}
           ></Column>
           <Column
             field="name"
-            header="Name"
+            header="Nombre"
             sortable
             style={{ minWidth: '16rem' }}
           ></Column>
           <Column
             field="image"
-            header="Image"
+            header="Imagen"
             body={imageBodyTemplate}
           ></Column>
           <Column
             field="price"
-            header="Price"
+            header="Precio"
             body={priceBodyTemplate}
             sortable
             style={{ minWidth: '8rem' }}
           ></Column>
           <Column
             field="category"
-            header="Category"
+            header="Categoría"
             sortable
             style={{ minWidth: '10rem' }}
           ></Column>
           <Column
             field="rating"
-            header="Reviews"
+            header="Reseñas"
             body={ratingBodyTemplate}
             sortable
             style={{ minWidth: '12rem' }}
           ></Column>
           <Column
             field="inventoryStatus"
-            header="Status"
+            header="Estado"
             body={statusBodyTemplate}
             sortable
             style={{ minWidth: '12rem' }}
@@ -438,7 +438,7 @@ export default function ProductsList() {
         visible={productDialog}
         style={{ width: '32rem' }}
         breakpoints={{ '960px': '75vw', '641px': '90vw' }}
-        header="Product Details"
+        header="Detalles de producto"
         modal
         className="p-fluid"
         footer={productDialogFooter}
@@ -453,7 +453,7 @@ export default function ProductsList() {
         )}
         <div className="field">
           <label htmlFor="name" className="font-bold">
-            Name
+            Nombre
           </label>
           <InputText
             id="name"
@@ -464,26 +464,26 @@ export default function ProductsList() {
             className={classNames({ 'p-invalid': submitted && !product.name })}
           />
           {submitted && !product.name && (
-            <small className="p-error">Name is required.</small>
+            <small className="p-error">El nombre es requerido.</small>
           )}
         </div>
         <div className="formgrid grid">
           <div className="field col">
             <label htmlFor="price" className="font-bold">
-              Price
+              Precio
             </label>
             <InputNumber
               id="price"
               value={product.price}
               onValueChange={(e) => onInputNumberChange(e, 'price')}
               mode="currency"
-              currency="USD"
-              locale="en-US"
+              currency="CRC"
+              locale="es-CR"
             />
           </div>
           <div className="field col">
             <label htmlFor="quantity" className="font-bold">
-              Quantity
+              Cantidad
             </label>
             <InputNumber
               id="quantity"
@@ -510,7 +510,7 @@ export default function ProductsList() {
           />
           {product && (
             <span>
-              Are you sure you want to delete <b>{product.name}</b>?
+              Estas seguro de eliminar <b>{product.name}</b>?
             </span>
           )}
         </div>
@@ -531,7 +531,7 @@ export default function ProductsList() {
             style={{ fontSize: '2rem' }}
           />
           {product && (
-            <span>Are you sure you want to delete the selected products?</span>
+            <span>¿Está seguro de que desea eliminar los productos seleccionados?</span>
           )}
         </div>
       </Dialog>

@@ -52,15 +52,15 @@ export const TempView = () => {
       <div className="p-d-flex p-jc-center">
         <h1>Temp View</h1>
         <div>
-          <h2>Product</h2>
+          <h2>Producto</h2>
           <div>
-            <p>Product Id: {product.productId}</p>
-            <p>Name: {product.name}</p>
-            <p>Location: {product.location}</p>
-            <p>Price: {product.price}</p>
-            <p>Image: {product.image}</p>
-            <p>Price with IVA: {product.priceWithIva}</p>
-            <p>Stock: {product.stock}</p>
+            <p>Producto Id: {product.productId}</p>
+            <p>Nombre: {product.name}</p>
+            <p>Localización: {product.location}</p>
+            <p>Precio: {product.price}</p>
+            <p>Imagen: {product.image}</p>
+            <p>Price con IVA: {product.priceWithIva}</p>
+            <p>Inventario: {product.stock}</p>
           </div>
         </div>
         <Barcode value={product.productId.toString()} />
