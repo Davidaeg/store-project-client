@@ -25,7 +25,7 @@ export const ProductCard = (product: Product) => {
 
       <div>
         <h4 className="mb-1">{product.name}</h4>
-        <h6 className="mt-0 mb-1">${product.price}</h6>
+        <h6 className="mt-0 mb-1">₡{product.price}</h6>
         {user?.userType === UserType.GUEST ? null : (
           <div className="mt-auto">
             {quantity === 0 ? (
@@ -33,7 +33,7 @@ export const ProductCard = (product: Product) => {
                 style={{ background: '#fba855', border: '#fba855' }}
                 icon="pi pi-cart-plus"
                 rounded
-                label="Add to Cart"
+                label="Añadir al carrito"
                 onClick={() =>
                   increaseCartQuantity(product.productId, product.price)
                 }

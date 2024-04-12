@@ -23,7 +23,7 @@ export default function FormLogin() {
   return (
     <Card className="principal-card">
       <div className="p-fluid">
-        <Card title="Login" className="form-login">
+        <Card title="Inicio de sesión" className="form-login">
           <div className="p-fluid">
             <div className="p-field">
               <span className="p-float-label">
@@ -34,7 +34,7 @@ export default function FormLogin() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <label htmlFor="email" className="p-float-label-text">
-                  Email
+                Correo electrónico
                 </label>
               </span>
             </div>
@@ -48,13 +48,13 @@ export default function FormLogin() {
                   toggleMask
                 />
                 <label htmlFor="password" className="p-float-label-text">
-                  Password
+                 Contraseña
                 </label>
               </span>
             </div>
             <div className="flex justify-content-center p-button-Login">
               <Button
-                label="Login"
+                label="Iniciar sesión"
                 icon="pi pi-user"
                 className="w-10rem"
                 onClick={handleLogin}
@@ -62,7 +62,7 @@ export default function FormLogin() {
             </div>
             <div className="flex justify-content-center ">
               <p>
-                Don't you have an account yet ? <a href="Signup">Signup</a>
+                No tienes una cuenta aún? ve a registrarse
               </p>
             </div>
           </div>

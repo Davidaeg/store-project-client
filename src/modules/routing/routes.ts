@@ -13,35 +13,35 @@ import { Payment } from '../payment/Payment';
 export const appRoutes: RouteType[] = [
   {
     path: '/home',
-    name: 'Home',
+    name: 'Inicio',
     icon: 'pi pi-home',
     component: Home,
     layout: '/store'
   },
   {
     path: '/products',
-    name: 'Products',
-    icon: 'pi pi-shopping-cart',
+    name: 'Productos',
+    icon: 'pi pi-shopping-bag',
     component: Products,
     layout: '/store'
   },
   {
     path: '/signup',
-    name: 'Signup',
+    name: 'Registrarse',
     icon: 'pi pi-user',
     component: Signup,
     layout: '/store'
   },
   {
     path: '/login',
-    name: 'Login',
+    name: 'Iniciar sesion',
     icon: 'pi pi-user',
     component: Login,
     layout: '/store'
   },
   {
     path: '/shopping',
-    name: 'shoppingCart',
+    name: 'Carrito',
     icon: 'pi pi-cart-plus',
     component: ShoppingCart,
     layout: '/store'
@@ -62,7 +62,7 @@ export const appRoutes: RouteType[] = [
   },
   {
     path: '/empsignup',
-    name: 'Signup',
+    name: 'Registrarse',
     icon: 'pi pi-user',
     component: EmpSignup,
     layout: '/admin'

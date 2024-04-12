@@ -55,7 +55,7 @@ export const Navbar = () => {
         className="logButton p-button p-button-text p-button-rounded "
         onClick={SessionButtonActionHandler}
       >
-        {user?.userType === UserType.GUEST ? 'Login' : 'Logout'}{' '}
+        {user?.userType === UserType.GUEST ? 'Iniciar sesión' : 'Cerrar sesión'}{' '}
       </button>
 
       <p>{user ? user.username.split('@')[0] : 'Guest'}</p>

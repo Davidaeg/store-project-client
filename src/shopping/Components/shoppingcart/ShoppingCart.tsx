@@ -15,7 +15,7 @@ export const ShoppingCart = () => {
     }, 0);
   }
   return (
-    <Panel header={`Cart Total: $` + totalInCart()}>
+    <Panel header={`Total del carrito: ₡` + totalInCart()}>
       {cartItems.map((item) => (
         <CartItem key={item.id} {...item} />
       ))}

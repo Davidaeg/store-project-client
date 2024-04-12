@@ -71,14 +71,14 @@ export const ProductForm = () => {
     const result = ProductSchema.safeParse(newProduct);
 
     if (!result.success) {
-      showErrorModal('Error creating product:', result.error.message);
-      console.error('Error creating product:', result.error);
+      showErrorModal('Error creando el producto:', result.error.message);
+      console.error('Error creando el producto:', result.error);
       return;
     }
 
     if (!file) {
-      showErrorModal('Error creating product:', 'No image selected');
-      console.error('Error creating product: No image selected');
+      showErrorModal('Error creando el producto:', 'No image selected');
+      console.error('Error creando el producto: imagen no seleccionada');
       return;
     }
 
@@ -87,11 +87,11 @@ export const ProductForm = () => {
       if (result) {
         setFormData(initialProduct);
         setFile(undefined);
-        showSuccessModal('Product created successfully');
+        showSuccessModal('Produco creado con exito!');
       }
     } catch (error: any) {
-      showErrorModal('Error creating product:', error.message);
-      console.error('Error creating product:', error);
+      showErrorModal('Error creando el producto:', error.message);
+      console.error('Error creando el producto:', error);
     }
   };
 
@@ -135,7 +135,7 @@ export const ProductForm = () => {
             name="stock"
             id="stock"
             value={formData.stock}
-            onChange={handleNumberChange('stock')}
+            onChange={handleNumberChange('EN INVENTARIO')}
           />
           <label htmlFor="stock">Cantidad</label>
         </span>
