@@ -18,8 +18,11 @@ export function CartItem({ id, quantity }: CartItemProps) {
   }, []);
 
   return (
-    <div className="grid nested-grid mb-3">
-      <div className="lg:col-2 bg-gray-200">
+    <div
+      style={{ margin: 'auto' }}
+      className="xl:col-4 grid nested-grid mb-3 bg-gray-200"
+    >
+      <div className="col-6 ">
         <div className="text-center">
           <img
             style={{ width: '125px', height: '150px', objectFit: 'cover' }}
@@ -28,7 +31,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
           />
         </div>
       </div>
-      <div className="col-4  lg:col-2 xl:col-1 bg-gray-200">
+      <div className="col-6">
         <div className="grid">
           <div className="col-12 ">
             <div className=" p-3 border-round-sm font-bold">
@@ -45,16 +48,34 @@ export function CartItem({ id, quantity }: CartItemProps) {
             <div className="p-3 border-round-sm font-bold">
               {(currentPoduct?.price ?? 0) * quantity}{' '}
               <span style={{ fontSize: '.75rem' }} className="text-muted">
-              CRC
+                CRC
               </span>
             </div>
           </div>
         </div>
       </div>
-      <div className="lg:col-2 bg-gray-200">
-        <div className="mt-6">
+      <div
+        className="col-12"
+        style={{
+          margin: 'auto',
+          width: '50%',
+          border: '3px',
+          padding: '10px'
+        }}
+      >
+        <div
+          style={{
+            margin: 'auto',
+            width: '50%',
+            border: '3px',
+            padding: '10px'
+          }}
+        >
           <Button
-            style={{ background: '#fba855', border: '#fba855' }}
+            style={{
+              background: '#fba855',
+              border: '#fba855'
+            }}
             icon="pi pi-minus"
             rounded
             className="ml-1 mr-5 lg:mr-0"
