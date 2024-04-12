@@ -2,7 +2,6 @@ import { Button } from 'primereact/button';
 import { useShoppingCart } from '../../context/shoppingCartContext';
 import { useGetProductById } from './../../shared/datasources/products/products-api/useGetProductById.hook';
 import { useEffect } from 'react';
-import { audio } from '@cloudinary/url-gen/qualifiers/source';
 
 type CartItemProps = {
   id: number;
@@ -49,7 +48,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
             <div className="p-3 border-round-sm font-bold">
               {(currentPoduct?.price ?? 0) * quantity}{' '}
               <span style={{ fontSize: '.75rem' }} className="text-muted">
-                usd
+                CRC
               </span>
             </div>
           </div>
@@ -79,7 +78,8 @@ export function CartItem({ id, quantity }: CartItemProps) {
             }}
             icon="pi pi-minus"
             rounded
-            label="remove"
+            className="ml-1 mr-5 lg:mr-0"
+            label="Eliminar"
             onClick={() =>
               decreaseCartQuantity(
                 currentPoduct!.productId,

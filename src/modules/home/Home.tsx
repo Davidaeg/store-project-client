@@ -4,7 +4,7 @@ import { Banner } from './components/banner/banner';
 
 export const Home = () => {
   return (
-    <Panel header=" Home">
+    <Panel header=" Inicio">
       <div className="p-d-flex p-jc-center">
         <Banner />
         <Carrousel />

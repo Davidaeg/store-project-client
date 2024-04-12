@@ -16,7 +16,7 @@ export const ShoppingCart = () => {
     }, 0);
   }
   return (
-    <Panel header={`Cart Total: $` + totalInCart().toFixed(2)}>
+    <Panel header={`Total del carrito: ₡` + totalInCart().toFixed(2)}>
       <div>
         {cartItems.length === 0 ? (
           <div style={{ margin: '10% 0 50% 0' }}>
