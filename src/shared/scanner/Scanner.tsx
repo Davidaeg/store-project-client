@@ -45,7 +45,10 @@ export const Scanner = ({ onDetected }: ScannerProps) => {
     );
     Quagga.onDetected(onDetected);
 
-    return () => Quagga.offDetected(onDetected);
+    return () => {
+      Quagga.offDetected(onDetected);
+      Quagga.stop();
+    };
   }, []);
 
   return <div id="scanner" />;
