@@ -6,7 +6,10 @@ import {
   useState
 } from 'react';
 import { useGetAllProducts } from '../shared/datasources/products/products-api/useGetAllProducts.hook';
-import { Product } from '../shared/datasources/products/products.types';
+import {
+  Product,
+  ProductForList
+} from '../shared/datasources/products/products.types';
 
 type ShoppingCartProviderProps = {
   children: ReactNode;
@@ -18,17 +21,18 @@ type CartItem = {
   price: number;
 };
 
-type ShoppingCartContext = {
+type ShoppingCartContextType = {
   getItemQuantity: (id: number) => number;
   increaseCartQuantity: (id: number, price: number) => void;
   decreaseCartQuantity: (id: number, price: number) => void;
+  getAllProductsForList: () => ProductForList[];
   currentPoducts: Product[];
   cartItems: CartItem[];
 };
-const shoppingCartContext = createContext({} as ShoppingCartContext);
+const ShoppingCartContext = createContext({} as ShoppingCartContextType);
 
 export function useShoppingCart() {
-  return useContext(shoppingCartContext);
+  return useContext(ShoppingCartContext);
 }
 
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
@@ -83,17 +87,33 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     });
   }
 
+  const getAllProductsForList = () =>
+    currentPoducts.map((product) => {
+      return {
+        id: product.productId,
+        code: product.productId.toString(),
+        name: product.name,
+        image: product.image,
+        price: product.priceWithIva,
+        quantity: product.stock,
+        rating: 5,
+        inventoryStatus: product.stock > 0 ? 'INSTOCK' : 'OUTOFSTOCK',
+        location: product.location
+      };
+    });
+
   return (
-    <shoppingCartContext.Provider
+    <ShoppingCartContext.Provider
       value={{
         getItemQuantity,
         increaseCartQuantity,
         decreaseCartQuantity,
+        getAllProductsForList,
         currentPoducts,
         cartItems
       }}
     >
       {children}
-    </shoppingCartContext.Provider>
+    </ShoppingCartContext.Provider>
   );
 }

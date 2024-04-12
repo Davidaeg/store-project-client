@@ -1,5 +1,5 @@
 import { Button } from 'primereact/button';
-import { useShoppingCart } from '../../context/shoppingCartContext';
+import { useShoppingCart } from '../../context/ShoppingCartContext';
 import { useGetProductById } from './../../shared/datasources/products/products-api/useGetProductById.hook';
 import { useEffect } from 'react';
 

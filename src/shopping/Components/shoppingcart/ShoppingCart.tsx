@@ -1,5 +1,5 @@
 import { Panel } from 'primereact/panel';
-import { useShoppingCart } from '../../../context/shoppingCartContext';
+import { useShoppingCart } from '../../../context/ShoppingCartContext';
 import { CartItem } from '../CartItem';
 import { Button } from 'primereact/button';
 import '../shoppingcart/ShoppingCart.Styles.css';
