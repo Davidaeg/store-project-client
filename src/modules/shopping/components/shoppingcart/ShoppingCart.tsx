@@ -1,10 +1,11 @@
 import { Panel } from 'primereact/panel';
-import { useShoppingCart } from '../../../../context/ShoppingCartContext';
+
 import { CartItem } from '../CartItem';
 import { Button } from 'primereact/button';
 import '../shoppingcart/ShoppingCart.Styles.css';
 import { Payment } from '../../../payment/Payment';
 import { useState } from 'react';
+import { useShoppingCart } from '../../../../context/shoppingCartContext';
 
 export const ShoppingCart = () => {
   const { cartItems, currentPoducts } = useShoppingCart();

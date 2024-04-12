@@ -7,7 +7,8 @@ import { Layout } from './shared/components/layout/Layout';
 import { AppRouter } from './modules/routing/AppRouter';
 import { BrowserRouter } from 'react-router-dom';
 import { AuthenticationProvider } from './modules/auth/Authentication.context';
-import { ShoppingCartProvider } from './context/ShoppingCartContext';
+import { ShoppingCartProvider } from './context/shoppingCartContext';
+
 
 function StoreApp() {
   return (

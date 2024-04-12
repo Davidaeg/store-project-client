@@ -5,11 +5,12 @@ import { Button } from 'primereact/button';
 import { useModals } from '../../../../shared/hooks/modals/useModals.hook';
 import { Calendar } from 'primereact/calendar';
 import { PaymentSchema } from '../../../../shared/schemas/PaymentSchema';
-import { useShoppingCart } from '../../../../context/ShoppingCartContext';
+import { useShoppingCart } from '../../../../context/shoppingCartContext';
 import { AuthenticationContext } from '../../../auth/Authentication.context';
 import { CreateOrderDto } from '../../../../shared/datasources/order/order.entity';
 import { useCreateOrder } from '../../../../shared/datasources/order/useCreateOrder.hook';
 import '../paymentform/PaymentForm.Styles.css';
+
 
 const PaymentForm = () => {
   const { showSuccessModal, showErrorModal } = useModals();
@@ -31,7 +32,7 @@ const PaymentForm = () => {
 
   useEffect(() => {
     setNewOrder({
-      customerId: user!.id,
+      userId: user!.id,
       purchaseDate: currentDate,
       status: 'InPreparation',
       products: cartItems.map((item) => ({

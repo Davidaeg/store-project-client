@@ -17,7 +17,7 @@ import {
   Location,
   ProductForList
 } from '../../../../../shared/datasources/products/products.types';
-import { useShoppingCart } from '../../../../../context/ShoppingCartContext';
+import { useShoppingCart } from '../../../../../context/shoppingCartContext';
 
 const SpanishLocations = {
   [Location.Estante1]: 'Estante 1',
