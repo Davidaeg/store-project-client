@@ -8,6 +8,7 @@ import { ShoppingCart } from '../../shopping/Components/shoppingcart/ShoppingCar
 import { Order } from '../order/Order';
 import { Products } from '../products/Products';
 import { ProductsManagement } from '../products/productManagement/ProductsManagement';
+import { Payment } from '../payment/Payment';
 
 export const appRoutes: RouteType[] = [
   {
@@ -43,6 +44,13 @@ export const appRoutes: RouteType[] = [
     name: 'shoppingCart',
     icon: 'pi pi-cart-plus',
     component: ShoppingCart,
+    layout: '/store'
+  },
+  {
+    path: '/payment',
+    name: 'Pago',
+    icon: 'pi pi-cart-plus',
+    component: Payment,
     layout: '/store'
   },
   {

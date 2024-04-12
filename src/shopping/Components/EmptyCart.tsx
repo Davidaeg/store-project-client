@@ -15,6 +15,7 @@ const EmptyCartMessage = () => {
     //   text="Your Cart is Empty"
 
     // />
+
     <div
       style={{
         background: '#f2f2f2',
