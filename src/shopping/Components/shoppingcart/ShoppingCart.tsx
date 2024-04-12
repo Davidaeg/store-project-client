@@ -3,7 +3,6 @@ import { useShoppingCart } from '../../../context/shoppingCartContext';
 import { CartItem } from '../CartItem';
 import { Button } from 'primereact/button';
 import '../shoppingcart/ShoppingCart.Styles.css';
-import EmptyCartMessage from '../EmptyCart';
 import { Payment } from '../../../modules/payment/Payment';
 import { useState } from 'react';
 
