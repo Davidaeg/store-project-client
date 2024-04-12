@@ -135,7 +135,7 @@ export const FileUploadComponent = ({ setFile }: FileUploadComponentI) => {
           style={{ fontSize: '1.2em', color: 'var(--text-color-secondary)' }}
           className="my-5"
         >
-          Drag and Drop Image Here
+          Arrastre y suelte la imagen aquí
         </span>
       </div>
     );
@@ -163,9 +163,9 @@ export const FileUploadComponent = ({ setFile }: FileUploadComponentI) => {
     <div>
       <Toast ref={toast}></Toast>
 
-      <Tooltip target=".custom-choose-btn" content="Choose" position="bottom" />
-      <Tooltip target=".custom-upload-btn" content="Upload" position="bottom" />
-      <Tooltip target=".custom-cancel-btn" content="Clear" position="bottom" />
+      <Tooltip target=".custom-choose-btn" content="Elegir" position="bottom" />
+      <Tooltip target=".custom-upload-btn" content="Cargar" position="bottom" />
+      <Tooltip target=".custom-cancel-btn" content="Limpiar" position="bottom" />
 
       <FileUpload
         ref={fileUploadRef}

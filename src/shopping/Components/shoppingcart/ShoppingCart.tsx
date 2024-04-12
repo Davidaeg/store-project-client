@@ -3,6 +3,7 @@ import { useShoppingCart } from '../../../context/shoppingCartContext';
 import { CartItem } from '../CartItem';
 import { Button } from 'primereact/button';
 import '../shoppingcart/ShoppingCart.Styles.css';
+import EmptyCartMessage from '../EmptyCart';
 import { Payment } from '../../../modules/payment/Payment';
 import { useState } from 'react';
 
@@ -26,7 +27,7 @@ export const ShoppingCart = () => {
       {viewPayment ? (
         <Payment />
       ) : (
-        <Panel header={`Cart Total: $${totalInCart()}`}>
+        <Panel header={`Total del carrito: ₡${totalInCart()}`}>
           {cartItems.map((item) => (
             <CartItem key={item.id} {...item} />
           ))}

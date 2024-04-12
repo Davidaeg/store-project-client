@@ -16,23 +16,22 @@ export const Footer = () => {
       <div className="flex-item">
         <p className="column-title">Misión</p>
         <p>
-          “To be a trusted provider for customers, offering quality products.”
+          “Ser un proveedor de confianza para los clientes, brindando productos de calidad.”
         </p>
       </div>
       <Divider layout="vertical" />
       <div className="flex-item ">
         <p className="column-title">Visión</p>
-        <p>“To be the number one product distributor in Heredia.”</p>
+        <p>“Ser la empresa distribuidora de productos N°1 en Heredia.”</p>
       </div>
       <Divider layout="vertical" />
       <div className="flex-item ">
-        <p className="column-title"> Us</p>
+        <p className="column-title"> Nosotros</p>
         <ul>
-          <li className="li-information ">Email: contact@fashionLoft.com</li>
-          <li className="li-information ">Number: +506 2233 4455</li>
+          <li className="li-information ">Correo : contacto@fashionLoft.com</li>
+          <li className="li-information ">Número de teléfono: +506 2233 4455</li>
           <li className="li-information ">
-            Location: 123 Fictitious Street, Imaginary Neighborhood, Heredia,
-            Costa Rica.
+            Dirección: Calle La Esperanza, San Joaquín de Flores Heredia.
           </li>
         </ul>
       </div>

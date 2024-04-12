@@ -41,18 +41,18 @@ export default function EmpSignup() {
 
     createPerson(newPerson)
       .then(() => {
-        console.log('Creating a person');
+        console.log('Creando persona');
         setNewPerson(defaultPerson);
         showSuccessModal();
       })
       .catch(({ error }) => {
-        console.error('Error creating person:', error);
+        console.error('Error creando persona:', error);
         setNewPerson(defaultPerson);
         showErrorModal();
       });
   };
   return (
-    <Card title="Sign Up" className="form-empSignup">
+    <Card title="Registrarse" className="form-empSignup">
       <div className="p-fluid">
         <div className="p-field">
           <span className="p-float-label">
@@ -61,7 +61,7 @@ export default function EmpSignup() {
               value={newPerson.name}
               onChange={(e) => handleInputChange('name', e.target.value)}
             />
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">Nombre</label>
           </span>
         </div>
         <div className="p-field">
@@ -73,7 +73,7 @@ export default function EmpSignup() {
                 handleInputChange('firstLastName', e.target.value)
               }
             />
-            <label htmlFor="firstLastName">First Last Name</label>
+            <label htmlFor="firstLastName">Primer apellido</label>
           </span>
         </div>
         <div className="p-field">
@@ -85,7 +85,7 @@ export default function EmpSignup() {
                 handleInputChange('secondLastName', e.target.value)
               }
             />
-            <label htmlFor="secondLastName">Second Last Name</label>
+            <label htmlFor="secondLastName">Segundo apellido</label>
           </span>
         </div>
         <div className="p-field">
@@ -101,7 +101,7 @@ export default function EmpSignup() {
               }
               dateFormat="dd/mm/yy"
             />
-            <label htmlFor="birthdate">Birthdate</label>
+            <label htmlFor="birthdate">Fecha de nacimiento</label>
           </span>
         </div>
         <div className="p-field">
@@ -111,7 +111,7 @@ export default function EmpSignup() {
               value={newPerson.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
             />
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Correo electrónico</label>
           </span>
         </div>
         <div className="p-field">
@@ -121,7 +121,7 @@ export default function EmpSignup() {
               value={newPerson.phoneNumber}
               onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
             />
-            <label htmlFor="phone">Phone</label>
+            <label htmlFor="phone">Numero de teléfono</label>
           </span>
         </div>
         <div className="p-field">
@@ -131,7 +131,7 @@ export default function EmpSignup() {
               value={newPerson.password}
               onChange={(e) => handleInputChange('password', e.target.value)}
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Contraseña</label>
           </span>
         </div>
         <div className="card flex justify-content-center">
@@ -141,13 +141,13 @@ export default function EmpSignup() {
               value={newPerson.address}
               onChange={(e) => handleInputChange('address', e.target.value)}
             />
-            <label htmlFor="address">Address</label>
+            <label htmlFor="address">Dirección</label>
           </span>
         </div>
 
         <div className="flex justify-content-center p-button-signup">
           <Button
-            label="Sign Up"
+            label="Registrarse"
             icon="pi pi-user-plus"
             className="w-10rem"
             onClick={handleSubmit}
@@ -155,7 +155,7 @@ export default function EmpSignup() {
         </div>
         <div className="flex justify-content-center ">
           <p>
-            Already have an account? <a href="Login">Login</a>
+            Ya tienes una cuenta? ve a inicio de sesión
           </p>
         </div>
       </div>
