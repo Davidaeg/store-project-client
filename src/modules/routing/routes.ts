@@ -4,7 +4,7 @@ import { Signup } from '../signup/Signup';
 import { Login } from '../login/Login';
 import { TempView } from '../tempViews/TempView';
 import EmpSignup from '../empsignup/EmpSignup';
-import { ShoppingCart } from '../../shopping/Components/shoppingcart/ShoppingCart';
+import { ShoppingCart } from '../shopping/components/shoppingcart/ShoppingCart';
 import { Order } from '../order/Order';
 import { Products } from '../products/Products';
 import { ProductsManagement } from '../products/productManagement/ProductsManagement';

@@ -1,9 +1,9 @@
 import { Panel } from 'primereact/panel';
-import { useShoppingCart } from '../../../context/ShoppingCartContext';
+import { useShoppingCart } from '../../../../context/ShoppingCartContext';
 import { CartItem } from '../CartItem';
 import { Button } from 'primereact/button';
 import '../shoppingcart/ShoppingCart.Styles.css';
-import { Payment } from '../../../modules/payment/Payment';
+import { Payment } from '../../../payment/Payment';
 import { useState } from 'react';
 
 export const ShoppingCart = () => {
