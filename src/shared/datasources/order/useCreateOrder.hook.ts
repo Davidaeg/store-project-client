@@ -1,48 +1,30 @@
 import { useState } from 'react';
-import { CreateProduct } from '../products.types';
+import { CreateOrderDto } from './order.entity';
+import { storeService } from '../store-service/storeService';
 
-export const useCreateProduct = () => {
+export const useCreateOrder = () => {
   const [error, setError] = useState<string>('');
+  const [orderToCreate, setOrderToCreate] = useState<CreateOrderDto>();
 
-  const createProduct = async (newProduct: CreateProduct, imageFile: File) => {
+  const createOrder = async (newOrder: CreateOrderDto) => {
     try {
-      const formData = new FormData();
-      formData.append('file', imageFile, imageFile.name);
-      formData.append(
-        'upload_preset',
-        `${import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET}`
-      );
-      formData.append(
-        'cloud_name',
-        `${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}`
-      );
-      formData.append('folder', 'products');
-
-      const result = await cloudinaryService.post(
-        `${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`,
-        formData
-      );
-      const resp = await storeService.post('/products', {
-        ...newProduct,
-        image: result.data.secure_url
-      });
-
-      if (resp.status === 201) {
-        console.log('Product created:', resp.data);
-        return true;
-      }
+      const resp = await storeService.post('/order', newOrder);
+      setOrderToCreate(resp.data as CreateOrderDto);
+      console.log('Person created:', resp.data);
+      return Promise.resolve();
     } catch (error: any) {
-      console.error('Error creating product:', error);
+      console.error('Error creating order:', error);
       setError(
         error.response?.data?.error ||
-          'An error occurred while creating the product.'
+          'An error occurred while creating the order.'
       );
-      return false;
+      return Promise.reject(error);
     }
   };
 
   return {
-    createProduct,
+    createOrder,
+    orderToCreate,
     error
   };
 };

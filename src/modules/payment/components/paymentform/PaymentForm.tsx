@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -8,11 +8,15 @@ import { PaymentSchema } from '../../../../shared/schemas/PaymentSchema';
 import '../paymentform/PaymentForm.Styles.css';
 import { useShoppingCart } from '../../../../context/shoppingCartContext';
 import { AuthenticationContext } from '../../../auth/Authentication.context';
+import { CreateOrderDto } from '../../../../shared/datasources/order/order.entity';
+import { useCreateOrder } from '../../../../shared/datasources/order/useCreateOrder.hook';
 
 const PaymentForm = () => {
   const { showSuccessModal, showErrorModal } = useModals();
-  const { cartItems, currentPoducts } = useShoppingCart();
+  const { cartItems } = useShoppingCart();
   const { user } = useContext(AuthenticationContext);
+  const [newOrder, setNewOrder] = useState<CreateOrderDto>();
+  const currentDate = new Date();
   const Data = {
     name: '',
     cardNumber: '',
@@ -20,10 +24,24 @@ const PaymentForm = () => {
     securityCode: ''
   };
   const [formData, setFormData] = useState(Data);
-
   const handleInputChange = (e: any, field: string) => {
     setFormData({ ...formData, [field]: e.target.value });
   };
+  const { createOrder } = useCreateOrder();
+
+  useEffect(() => {
+    setNewOrder({
+      customerId: user!.id,
+      purchaseDate: currentDate,
+      status: 'InPreparation',
+      products: cartItems.map((item) => ({
+        productId: item.id,
+        quantity: item.quantity
+      }))
+    });
+
+    console.log('Product Order Pending');
+  }, []);
 
   const handleConfirmPayment = () => {
     const validation = PaymentSchema.safeParse(formData);
@@ -34,11 +52,9 @@ const PaymentForm = () => {
         'Se ha confirmado el pago correctamente.'
       );
       setFormData(Data);
-      console.log('Pago exitoso:', formData);
 
-      //agregando orden
-      console.log(cartItems);
-      console.log(user);
+      console.log(newOrder);
+      createOrder(newOrder!);
     } else {
       showErrorModal(
         'Error en el pago',
