@@ -1,4 +1,4 @@
-import  { useState, ChangeEvent} from 'react';
+import { useState, useContext } from 'react';
 import { Card } from 'primereact/card';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
@@ -6,32 +6,47 @@ import { useModals } from '../../../../shared/hooks/modals/useModals.hook';
 import { Calendar } from 'primereact/calendar';
 import { PaymentSchema } from '../../../../shared/schemas/PaymentSchema';
 import '../paymentform/PaymentForm.Styles.css';
+import { useShoppingCart } from '../../../../context/shoppingCartContext';
+import { AuthenticationContext } from '../../../auth/Authentication.context';
 
 const PaymentForm = () => {
-  const { showSuccessModal,showErrorModal } = useModals();
+  const { showSuccessModal, showErrorModal } = useModals();
+  const { cartItems, currentPoducts } = useShoppingCart();
+  const { user } = useContext(AuthenticationContext);
   const Data = {
     name: '',
     cardNumber: '',
     expiredDate: null,
-    securityCode: '',
+    securityCode: ''
   };
   const [formData, setFormData] = useState(Data);
 
-  const handleInputChange = (e: ChangeEvent<HTMLInputElement>, field: string) => {
+  const handleInputChange = (e: any, field: string) => {
     setFormData({ ...formData, [field]: e.target.value });
   };
 
   const handleConfirmPayment = () => {
     const validation = PaymentSchema.safeParse(formData);
+
     if (validation.success) {
-      showSuccessModal('Pago exitoso', 'Se ha confirmado el pago correctamente.');
+      showSuccessModal(
+        'Pago exitoso',
+        'Se ha confirmado el pago correctamente.'
+      );
       setFormData(Data);
-      console.log('Pago exitoso:', formData); 
+      console.log('Pago exitoso:', formData);
+
+      //agregando orden
+      console.log(cartItems);
+      console.log(user);
     } else {
-      showErrorModal('Error en el pago', 'Por favor complete todos los campos correctamente.');
+      showErrorModal(
+        'Error en el pago',
+        'Por favor complete todos los campos correctamente.'
+      );
     }
   };
-  
+
   return (
     <div className="payment-form-container">
       <Card title="Pago de productos">
@@ -86,7 +101,11 @@ const PaymentForm = () => {
             </span>
           </div>
         </div>
-        <Button label="Confirmar pago" className="confirm-button" onClick={handleConfirmPayment} />
+        <Button
+          label="Confirmar pago"
+          className="confirm-button"
+          onClick={handleConfirmPayment}
+        />
       </Card>
     </div>
   );
