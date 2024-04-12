@@ -38,7 +38,8 @@ export const useGetAllProducts = () => {
               price: product.priceWithIva,
               quantity: product.stock,
               rating: 5,
-              inventoryStatus: product.stock > 0 ? 'INSTOCK' : 'OUTOFSTOCK'
+              inventoryStatus: product.stock > 0 ? 'INSTOCK' : 'OUTOFSTOCK',
+              location: product.location
             };
           });
         })

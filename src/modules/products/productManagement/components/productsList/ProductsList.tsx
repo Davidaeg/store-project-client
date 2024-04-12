@@ -4,7 +4,6 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Toast } from 'primereact/toast';
 import { Button } from 'primereact/button';
-import { Rating } from 'primereact/rating';
 import { Toolbar } from 'primereact/toolbar';
 import {
   InputNumber,
@@ -13,47 +12,48 @@ import {
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Tag } from 'primereact/tag';
-import { useGetAllProducts } from '../../../../../shared/datasources/products/products-api/useGetAllProducts.hook';
+import Barcode from 'react-barcode';
+import {
+  Location,
+  ProductForList
+} from '../../../../../shared/datasources/products/products.types';
+import { useShoppingCart } from '../../../../../context/ShoppingCartContext';
 
-interface Product {
-  id: number;
-  code: string;
-  name: string;
-  image: string;
-  price: number;
-  quantity: number;
-  inventoryStatus: string;
-  rating: number;
-}
+const SpanishLocations = {
+  [Location.Estante1]: 'Estante 1',
+  [Location.Estante2]: 'Estante 2',
+  [Location.Estante3]: 'Estante 3'
+};
 
 export default function ProductsList() {
-  let emptyProduct: Product = {
+  let emptyProduct: ProductForList = {
     id: 0,
     code: '',
     name: '',
     image: '',
     price: 0,
     quantity: 0,
-    rating: 0,
     inventoryStatus: 'EN INVENTARIO'
   };
-  const { getAllProductsForList } = useGetAllProducts();
+  const { getAllProductsForList } = useShoppingCart();
 
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductForList[]>([]);
   const [productDialog, setProductDialog] = useState<boolean>(false);
   const [deleteProductDialog, setDeleteProductDialog] =
     useState<boolean>(false);
   const [deleteProductsDialog, setDeleteProductsDialog] =
     useState<boolean>(false);
-  const [product, setProduct] = useState<Product>(emptyProduct);
-  const [selectedProducts, setSelectedProducts] = useState<Product[]>([]);
+  const [product, setProduct] = useState<ProductForList>(emptyProduct);
+  const [selectedProducts, setSelectedProducts] = useState<ProductForList[]>(
+    []
+  );
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [globalFilter, setGlobalFilter] = useState<string>('');
   const toast = useRef<Toast>(null);
-  const dt = useRef<DataTable<Product[]>>(null);
+  const dt = useRef<DataTable<ProductForList[]>>(null);
 
   useEffect(() => {
-    getAllProductsForList().then((data) => setProducts(data));
+    setProducts(getAllProductsForList());
   }, []);
 
   const formatCurrency = (value: number) => {
@@ -61,12 +61,6 @@ export default function ProductsList() {
       style: 'currency',
       currency: 'CRC'
     });
-  };
-
-  const openNew = () => {
-    setProduct(emptyProduct);
-    setSubmitted(false);
-    setProductDialog(true);
   };
 
   const hideDialog = () => {
@@ -116,12 +110,12 @@ export default function ProductsList() {
     }
   };
 
-  const editProduct = (product: Product) => {
+  const editProduct = (product: ProductForList) => {
     setProduct({ ...product });
     setProductDialog(true);
   };
 
-  const confirmDeleteProduct = (product: Product) => {
+  const confirmDeleteProduct = (product: ProductForList) => {
     setProduct(product);
     setDeleteProductDialog(true);
   };
@@ -205,12 +199,6 @@ export default function ProductsList() {
     return (
       <div className="flex flex-wrap gap-2">
         <Button
-          label="Nuevo"
-          icon="pi pi-plus"
-          severity="success"
-          onClick={openNew}
-        />
-        <Button
           label="Eliminar"
           icon="pi pi-trash"
           severity="danger"
@@ -224,7 +212,7 @@ export default function ProductsList() {
   const rightToolbarTemplate = () => {
     return (
       <Button
-        label="Exportar"
+        label="Exportar CSV"
         icon="pi pi-upload"
         className="p-button-help"
         onClick={exportCSV}
@@ -232,7 +220,7 @@ export default function ProductsList() {
     );
   };
 
-  const imageBodyTemplate = (rowData: Product) => {
+  const imageBodyTemplate = (rowData: ProductForList) => {
     return (
       <img
         src={`${rowData.image}`}
@@ -243,15 +231,11 @@ export default function ProductsList() {
     );
   };
 
-  const priceBodyTemplate = (rowData: Product) => {
+  const priceBodyTemplate = (rowData: ProductForList) => {
     return formatCurrency(rowData.price);
   };
 
-  const ratingBodyTemplate = (rowData: Product) => {
-    return <Rating value={rowData.rating} readOnly cancel={false} />;
-  };
-
-  const statusBodyTemplate = (rowData: Product) => {
+  const statusBodyTemplate = (rowData: ProductForList) => {
     return (
       <Tag
         value={rowData.inventoryStatus}
@@ -260,7 +244,7 @@ export default function ProductsList() {
     );
   };
 
-  const actionBodyTemplate = (rowData: Product) => {
+  const actionBodyTemplate = (rowData: ProductForList) => {
     return (
       <React.Fragment>
         <Button
@@ -281,7 +265,7 @@ export default function ProductsList() {
     );
   };
 
-  const getSeverity = (product: Product) => {
+  const getSeverity = (product: ProductForList) => {
     switch (product.inventoryStatus) {
       case 'INSTOCK':
         return 'success';
@@ -315,7 +299,12 @@ export default function ProductsList() {
   );
   const productDialogFooter = (
     <React.Fragment>
-      <Button label="Cancelar" icon="pi pi-times" outlined onClick={hideDialog} />
+      <Button
+        label="Cancelar"
+        icon="pi pi-times"
+        outlined
+        onClick={hideDialog}
+      />
       <Button label="Guardar" icon="pi pi-check" onClick={saveProduct} />
     </React.Fragment>
   );
@@ -387,6 +376,11 @@ export default function ProductsList() {
             header="Codigo"
             sortable
             style={{ minWidth: '12rem' }}
+            body={(rowData) => (
+              <>
+                <Barcode value={rowData.code.toString()} />
+              </>
+            )}
           ></Column>
           <Column
             field="name"
@@ -407,15 +401,19 @@ export default function ProductsList() {
             style={{ minWidth: '8rem' }}
           ></Column>
           <Column
-            field="category"
-            header="Categoría"
+            field="location"
+            header="Ubicación"
             sortable
             style={{ minWidth: '10rem' }}
+            body={(rowData: { location: Location }) => (
+              <span className="badge">
+                {SpanishLocations[rowData.location]}
+              </span>
+            )}
           ></Column>
           <Column
-            field="rating"
-            header="Reseñas"
-            body={ratingBodyTemplate}
+            field="quantity"
+            header="Inventario"
             sortable
             style={{ minWidth: '12rem' }}
           ></Column>
@@ -448,6 +446,7 @@ export default function ProductsList() {
           <img
             src={`${product.image}`}
             alt={product.image}
+            style={{ maxHeight: '200px' }}
             className="product-image block m-auto pb-3"
           />
         )}
@@ -531,7 +530,9 @@ export default function ProductsList() {
             style={{ fontSize: '2rem' }}
           />
           {product && (
-            <span>¿Está seguro de que desea eliminar los productos seleccionados?</span>
+            <span>
+              ¿Está seguro de que desea eliminar los productos seleccionados?
+            </span>
           )}
         </div>
       </Dialog>
