@@ -1,21 +1,14 @@
 import { Button } from 'primereact/button';
 import { useShoppingCart } from '../../../context/shoppingCartContext';
-import { useGetProductById } from '../../../shared/datasources/products/products-api/useGetProductById.hook';
-import { useEffect } from 'react';
+import { Product } from '../../../shared/datasources/products/products.types';
 
 type CartItemProps = {
-  id: number;
+  product: Product;
   quantity: number;
-  price: number;
 };
 
-export function CartItem({ id, quantity }: CartItemProps) {
+export function CartItem({ product, quantity }: CartItemProps) {
   const { decreaseCartQuantity } = useShoppingCart();
-  const { getProductByID, currentPoduct, error } = useGetProductById();
-
-  useEffect(() => {
-    getProductByID(id).catch(() => console.log(error));
-  }, []);
 
   return (
     <div
@@ -26,7 +19,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
         <div className="text-center">
           <img
             style={{ width: '125px', height: '150px', objectFit: 'cover' }}
-            src={currentPoduct?.image}
+            src={product.image}
             alt="item-image"
           />
         </div>
@@ -35,7 +28,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
         <div className="grid">
           <div className="col-12 ">
             <div className=" p-3 border-round-sm font-bold">
-              {currentPoduct?.name}{' '}
+              {product.name}{' '}
               {quantity > 1 && (
                 <span style={{ fontSize: '.65rem' }} className="text-muted">
                   x{quantity}
@@ -46,7 +39,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
 
           <div className="col-12">
             <div className="p-3 border-round-sm font-bold">
-              {(currentPoduct?.price ?? 0) * quantity}{' '}
+              {(product.price ?? 0) * quantity}{' '}
               <span style={{ fontSize: '.75rem' }} className="text-muted">
                 CRC
               </span>
@@ -81,10 +74,7 @@ export function CartItem({ id, quantity }: CartItemProps) {
             className="ml-1 mr-5 lg:mr-0"
             label="Eliminar"
             onClick={() =>
-              decreaseCartQuantity(
-                currentPoduct!.productId,
-                currentPoduct!.price
-              )
+              decreaseCartQuantity(product.productId, product.price)
             }
           />
         </div>

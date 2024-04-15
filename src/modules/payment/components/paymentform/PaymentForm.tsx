@@ -11,7 +11,6 @@ import { CreateOrderDto } from '../../../../shared/datasources/order/order.entit
 import { useCreateOrder } from '../../../../shared/datasources/order/useCreateOrder.hook';
 import '../paymentform/PaymentForm.Styles.css';
 
-
 const PaymentForm = () => {
   const { showSuccessModal, showErrorModal } = useModals();
   const { cartItems } = useShoppingCart();
@@ -32,7 +31,7 @@ const PaymentForm = () => {
 
   useEffect(() => {
     setNewOrder({
-      userId: user!.id,
+      customerId: user!.id,
       purchaseDate: currentDate,
       status: 'InPreparation',
       products: cartItems.map((item) => ({

@@ -6,6 +6,7 @@ import Scanner from '../../../../../shared/scanner/Scanner';
 import { Product } from '../../../../../shared/datasources/products/products.types';
 import { useShoppingCart } from '../../../../../context/shoppingCartContext';
 import { Row } from 'primereact/row';
+import { CartItem } from '../../../../shopping/components/CartItem';
 type ProductItem = Product & { quantity: number };
 export const CreateOrder = () => {
   const { currentPoducts } = useShoppingCart();
@@ -40,18 +41,18 @@ export const CreateOrder = () => {
   return (
     <Row className="p-d-flex p-jc-center">
       <Card title="Productos" className="p-mt-2">
-        <ul>
-          {products.map((product) => {
-            const item = currentPoducts.find(
-              (p) => p.productId === product.productId
-            );
-            return (
-              <li key={product.productId}>
-                {item?.name} - {`Cantidad: ${product.quantity}`}
-              </li>
-            );
-          })}
-        </ul>
+        {products.map((product) => {
+          const item = currentPoducts.find(
+            (p) => p.productId === product.productId
+          );
+          return (
+            <CartItem
+              key={product.productId}
+              product={item!}
+              quantity={product.quantity}
+            />
+          );
+        })}
       </Card>
       <Card>
         <Scanner onDetected={onDetected} />

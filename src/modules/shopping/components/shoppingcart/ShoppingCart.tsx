@@ -33,9 +33,18 @@ export const ShoppingCart = () => {
             <EmptyCartMessage />
           ) : (
             <Panel header={`Total del carrito: ₡${totalInCart()}`}>
-              {cartItems.map((item) => (
-                <CartItem key={item.id} {...item} />
-              ))}
+              {cartItems.map((item) => {
+                const product = currentPoducts.find(
+                  (i) => i.productId === item.id
+                )!;
+                return (
+                  <CartItem
+                    key={item.id}
+                    product={product}
+                    quantity={item.quantity}
+                  />
+                );
+              })}
               <div className="pay-button-container">
                 <Button
                   label="Proceder con el pago"
