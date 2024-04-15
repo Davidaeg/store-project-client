@@ -1,6 +1,6 @@
 export enum OrderStatus {
-    INPREPARATION = 'En preparación',
-    READYTOSHIP = 'Listo para envío',
+    INPREPARATION = 'Enpreparación',
+    READYTOSHIP = 'Listo',
     DELIVERED = 'Entregado', 
 }
   
