@@ -4,7 +4,7 @@ import useAudio from '../../../../../shared/audio/useAudio.hook';
 import { Card } from 'primereact/card';
 import Scanner from '../../../../../shared/scanner/Scanner';
 import { Product } from '../../../../../shared/datasources/products/products.types';
-import { useShoppingCart } from '../../../../../context/ShoppingCartContext';
+import { useShoppingCart } from '../../../../../context/shoppingCartContext';
 import { Row } from 'primereact/row';
 type ProductItem = Product & { quantity: number };
 export const CreateOrder = () => {
