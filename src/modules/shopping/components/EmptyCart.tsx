@@ -8,7 +8,8 @@ const EmptyCartMessage = () => {
         borderRadius: '5px',
         padding: '2rem',
         fontSize: '1.5rem',
-        textAlign: 'center'
+        textAlign: 'center',
+        margin: '20% 0 20% 0'
       }}
     >
       Your Cart is Empty
