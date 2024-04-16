@@ -11,10 +11,9 @@ import { CreateOrderDto } from '../../../../shared/datasources/order/order.entit
 import { useCreateOrder } from '../../../../shared/datasources/order/useCreateOrder.hook';
 import '../paymentform/PaymentForm.Styles.css';
 
-
 const PaymentForm = () => {
   const { showSuccessModal, showErrorModal } = useModals();
-  const { cartItems } = useShoppingCart();
+  const { cartItems, resetCart } = useShoppingCart();
   const { user } = useContext(AuthenticationContext);
   const [newOrder, setNewOrder] = useState<CreateOrderDto>();
   const currentDate = new Date();
@@ -56,6 +55,7 @@ const PaymentForm = () => {
 
       console.log(newOrder);
       createOrder(newOrder!);
+      resetCart();
     } else {
       showErrorModal(
         'Error en el pago',

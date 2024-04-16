@@ -12,7 +12,7 @@ const EmptyCartMessage = () => {
         margin: '20% 0 20% 0'
       }}
     >
-      Your Cart is Empty
+      Su carrito esta vacio
     </div>
   );
 };
