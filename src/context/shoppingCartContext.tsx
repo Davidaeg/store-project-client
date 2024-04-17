@@ -26,6 +26,7 @@ type ShoppingCartContextType = {
   increaseCartQuantity: (id: number, price: number) => void;
   decreaseCartQuantity: (id: number, price: number) => void;
   getAllProductsForList: () => ProductForList[];
+  resetCart: () => void;
   currentPoducts: Product[];
   cartItems: CartItem[];
 };
@@ -41,30 +42,46 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
 
   useEffect(() => {
     getAllProducts();
-  }, []);
+    console.log(currentPoducts);
+  }, [cartItems]);
 
   function getItemQuantity(id: number) {
     return cartItems.find((item) => item.id === id)?.quantity || 0;
   }
 
   function increaseCartQuantity(id: number, price: number) {
-    setCartItems((currItems) => {
-      if (currItems.find((item) => item.id === id) == null) {
-        return [...currItems, { id, quantity: 1, price }];
-      } else {
-        return currItems.map((item) => {
-          if (item.id === id) {
-            return {
-              ...item,
-              quantity: item.quantity + 1,
-              price: item.price + price
-            };
-          } else {
-            return item;
-          }
-        });
-      }
-    });
+    const totalQuantityInCart = cartItems.find(
+      (product) => product.id == id,
+      1
+    );
+    const qty = totalQuantityInCart ? totalQuantityInCart.quantity + 1 : 1;
+
+    const currentProduct = currentPoducts.find(
+      (product) => product.productId === id
+    );
+
+    console.log(qty, currentProduct?.stock);
+
+    if (qty > currentProduct!.stock) {
+    } else {
+      setCartItems((currItems) => {
+        if (currItems.find((item) => item.id === id) == null) {
+          return [...currItems, { id, quantity: 1, price }];
+        } else {
+          return currItems.map((item) => {
+            if (item.id === id) {
+              return {
+                ...item,
+                quantity: item.quantity + 1,
+                price: item.price + price
+              };
+            } else {
+              return item;
+            }
+          });
+        }
+      });
+    }
   }
 
   function decreaseCartQuantity(id: number, price: number) {
@@ -85,6 +102,10 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         });
       }
     });
+  }
+
+  function resetCart() {
+    setCartItems([]);
   }
 
   const getAllProductsForList = () =>
@@ -109,6 +130,7 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         increaseCartQuantity,
         decreaseCartQuantity,
         getAllProductsForList,
+        resetCart,
         currentPoducts,
         cartItems
       }}

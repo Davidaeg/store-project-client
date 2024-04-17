@@ -1,4 +1,4 @@
-import { OrderStatus } from "../../../modules/order/components/OrderStates.enum";
+import { OrderStatus } from '../../../modules/order/components/OrderStates.enum';
 
 export interface Order {
   orderId: number;
@@ -9,14 +9,14 @@ export interface Order {
 
 export interface CreateOrderDetailsDto {
   orderId?: number;
-  productName?: string; 
-  productPrice?: number; 
+  productName?: string;
+  productPrice?: number;
   productId: number;
   quantity: number;
 }
 
 export interface CreateOrderDto {
-  customerId: number;
+  userId: number;
   purchaseDate: Date;
   status: string;
   products: CreateOrderDetailsDto[];
