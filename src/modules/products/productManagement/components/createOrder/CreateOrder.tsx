@@ -6,11 +6,18 @@ import Scanner from '../../../../../shared/scanner/Scanner';
 import { Product } from '../../../../../shared/datasources/products/products.types';
 import { useShoppingCart } from '../../../../../context/shoppingCartContext';
 import { CartItem } from '../../../../shopping/components/CartItem';
+import { Button } from 'primereact/button';
+import { Payment } from '../../../../payment/Payment';
 type ProductItem = Product & { quantity: number };
 export const CreateOrder = () => {
+  const [viewPayment, setViewPayment] = useState(false);
   const { currentPoducts } = useShoppingCart();
   const [products, setProducts] = useState<ProductItem[]>([]);
   const { play } = useAudio('/audios/beep.mp3');
+
+  function handleClick() {
+    setViewPayment(true);
+  }
 
   const onDetected = (result: QuaggaJSResultObject) => {
     const code = result.codeResult.code;
@@ -37,6 +44,20 @@ export const CreateOrder = () => {
     });
   };
 
+  const renderProduct = () =>
+    products.map((product) => {
+      const item = currentPoducts.find(
+        (p) => p.productId === product.productId
+      );
+      return (
+        <CartItem
+          key={product.productId}
+          product={item!}
+          quantity={product.quantity}
+        />
+      );
+    });
+
   return (
     <div
       title="Crear orden"
@@ -52,18 +73,18 @@ export const CreateOrder = () => {
         <Scanner onDetected={onDetected} />
       </div>
       <Card style={{ width: '100%' }}>
-        {products.map((product) => {
-          const item = currentPoducts.find(
-            (p) => p.productId === product.productId
-          );
-          return (
-            <CartItem
-              key={product.productId}
-              product={item!}
-              quantity={product.quantity}
-            />
-          );
-        })}
+        {viewPayment ? <Payment /> : renderProduct()}
+
+        <div
+          className="pay-button-container"
+          style={{ visibility: viewPayment ? 'hidden' : 'visible' }}
+        >
+          <Button
+            label="Proceder con el pago"
+            className="pay-button"
+            onClick={handleClick}
+          />
+        </div>
       </Card>
     </div>
   );

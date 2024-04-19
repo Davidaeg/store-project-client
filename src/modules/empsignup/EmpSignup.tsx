@@ -52,7 +52,7 @@ export default function EmpSignup() {
       });
   };
   return (
-    <Card title="Registrarse" className="form-empSignup">
+    <Card title="Registrar Nuevo" className="form-empSignup">
       <div className="p-fluid">
         <div className="p-field">
           <span className="p-float-label">
@@ -154,9 +154,7 @@ export default function EmpSignup() {
           ></Button>
         </div>
         <div className="flex justify-content-center ">
-          <p>
-            Ya tienes una cuenta? ve a inicio de sesión
-          </p>
+          <p>Ya tienes una cuenta? ve a inicio de sesión</p>
         </div>
       </div>
     </Card>
