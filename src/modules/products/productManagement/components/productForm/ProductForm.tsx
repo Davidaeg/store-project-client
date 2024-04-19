@@ -87,7 +87,7 @@ export const ProductForm = () => {
       if (result) {
         setFormData(initialProduct);
         setFile(undefined);
-        showSuccessModal('Produco creado con exito!');
+        showSuccessModal('Producto creado con exito!');
       }
     } catch (error: any) {
       showErrorModal('Error creando el producto:', error.message);
@@ -176,7 +176,7 @@ export const ProductForm = () => {
         />
 
         <div className="card flex">
-          <Button label="Enviar" type="submit" disabled={isSubmitDisabled()} />
+          <Button label="Enviar" type="submit" disabled={false} />
         </div>
       </form>
     </Card>
