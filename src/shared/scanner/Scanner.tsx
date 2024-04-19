@@ -14,9 +14,10 @@ export const Scanner = ({ onDetected }: ScannerProps) => {
           type: 'LiveStream',
           willReadFrequently: false,
           constraints: {
-            width: 640,
-            height: 320,
-            facingMode: 'environment'
+            width: 350,
+            height: 300,
+            facingMode: 'environment',
+            noiseSuppression: true
           },
           target: document.querySelector('#scanner')!
         },
@@ -45,10 +46,13 @@ export const Scanner = ({ onDetected }: ScannerProps) => {
     );
     Quagga.onDetected(onDetected);
 
-    return () => Quagga.offDetected(onDetected);
+    return () => {
+      Quagga.offDetected(onDetected);
+      Quagga.stop();
+    };
   }, []);
 
-  return <div id="scanner" />;
+  return <div style={{ maxWidth: '100%' }} id="scanner" />;
 };
 
 export default Scanner;

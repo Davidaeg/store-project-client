@@ -3,19 +3,24 @@ import { Dialog } from 'primereact/dialog';
 import { Dropdown } from 'primereact/dropdown';
 import { Button } from 'primereact/button';
 import { OrderStatus } from '../OrderStates.enum';
-import { Order } from '../types/Types';
 import { Toast } from 'primereact/toast';
+import { Order } from '../../../../shared/datasources/order/order.entity';
+import { useUpdateStatus } from '../../../../shared/datasources/order/UseUpdateStatus.hook';
 import '../modals/Modals.css';
 
 interface ModalProps {
+  orderId: number; 
   order: Order;
-  onChangeState?: (newState: OrderStatus) => void;
+  onChangeState?: (newState: OrderStatus) => Promise<void>; 
+  updateOrders?: () => Promise<void>;
   onClose: () => void;
 }
 
-const ChangeStateModal = ({ order, onChangeState }: ModalProps) => {
+const ChangeStateModal = ({ orderId, order,  updateOrders, onClose }: ModalProps) => {
+  const { updateStatus } = useUpdateStatus();
+
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedState, setSelectedState] = useState<OrderStatus>(order.status);
+  const [selectedState, setSelectedState] = useState<OrderStatus>(order.status); 
   const orderStates = Object.values(OrderStatus);
   const toast = useRef<Toast>(null);
 
@@ -23,15 +28,27 @@ const ChangeStateModal = ({ order, onChangeState }: ModalProps) => {
     setIsVisible(!isVisible);
   };
 
-  const handleChangeState = () => {
-    if (onChangeState) {
-      onChangeState(selectedState);
+  const handleChangeState = async () => {
+    try {
+      await updateStatus(orderId, { status: selectedState });
       toggleModal();
+      if (updateOrders) {
+        await updateOrders(); 
+      }
       if (toast.current) {
         toast.current.show({
           severity: 'success',
           summary: 'Éxito',
           detail: 'El estado del pedido se ha cambiado con éxito',
+          life: 3000
+        });
+      }
+    } catch (error) {
+      if (toast.current) {
+        toast.current.show({
+          severity: 'error',
+          summary: 'Error',
+          detail: 'Hubo un error al actualizar el estado de la orden',
           life: 3000
         });
       }
@@ -59,7 +76,7 @@ const ChangeStateModal = ({ order, onChangeState }: ModalProps) => {
         <Dropdown
           value={selectedState}
           options={orderStates}
-          onChange={(e) => setSelectedState(e.value)}
+          onChange={(e) => setSelectedState(e.value as OrderStatus)} 
           placeholder="Seleccionar estado"
         />
       </Dialog>
@@ -69,3 +86,8 @@ const ChangeStateModal = ({ order, onChangeState }: ModalProps) => {
 };
 
 export default ChangeStateModal;
+
+
+
+
+

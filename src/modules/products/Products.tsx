@@ -18,17 +18,17 @@ export const Products = () => {
     error
   } = useProductFilter();
 
-  const [order, setOrder] = useState<Orders>(Orders.Default);
+  const [order, setOrder] = useState<Orders>(Orders.Predeterminada);
   const [searchByName, setSearchByName] = useState<string>('');
 
   const handleOrder: Record<string, () => void> = {
-    [Orders.Ascendent]: () => {
+    [Orders.Ascendente]: () => {
       getAllProductsAsc();
     },
-    [Orders.Descendent]: () => {
+    [Orders.Descendente]: () => {
       getAllProductsDesc();
     },
-    [Orders.Default]: () => {
+    [Orders.Predeterminada]: () => {
       getAllProducts();
     }
   };
@@ -51,11 +51,11 @@ export const Products = () => {
   }, []);
 
   return (
-    <Panel header="Products">
+    <Panel header="Productos">
       <div className="grid justify-content-center">
-        <div className="card flex justify-content-center">
-          <div className={'dropdown-container'}>
-            <small id="username-help">Sort Items by price</small>
+        <div className="card flex justify-content-center grid">
+          <div className="dropdown-container">
+            <small id="username-help">Ordenar artículos por precio</small>
             <Dropdown
               value={order}
               onChange={handleOrderChange}
@@ -70,7 +70,12 @@ export const Products = () => {
               value={searchByName}
               onChange={(e) => setSearchByName(e.target.value)}
             />
-            <Button label="Search" icon="pi pi-search" onClick={handleSearch} />
+            <Button
+              label="Buscar"
+              icon="pi pi-search"
+              onClick={handleSearch}
+              style={{ background: '#fba855', border: '#fba855' }}
+            />
           </div>
         </div>
       </div>

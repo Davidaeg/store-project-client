@@ -1,9 +1,9 @@
 import { Howl, Howler } from 'howler';
-import * as React from 'react';
+import { useRef } from 'react';
 
 const useAudio = (path: string) => {
   Howler.volume(1);
-  const audio = React.useRef(
+  const audio = useRef(
     new Howl({
       src: path,
       preload: true,

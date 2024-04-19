@@ -3,11 +3,12 @@ import { appRoutes } from './routes';
 import { useContext } from 'react';
 import { AuthenticationContext } from '../auth/Authentication.context';
 import { Home } from '../home/Home';
-import { TempView } from '../tempViews/TempView';
+import { Payment } from '../payment/Payment';
+import { Order } from '../order/Order';
 
 const userTypeComponents: Record<string, JSX.Element> = {
   customer: <Home />,
-  employee: <TempView />
+  employee: <Order />
 };
 export const AppRouter = () => {
   const { user } = useContext(AuthenticationContext);
@@ -35,6 +36,7 @@ export const AppRouter = () => {
           }
         })}
         <Route path="/*" element={initialComponent()} />
+        <Route path="/store/payment" element={<Payment />} />
       </>
     </Routes>
   );

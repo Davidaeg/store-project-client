@@ -1,0 +1,11 @@
+.pay-button {
+    background-color: #fba855 !important;
+    border-color: #fba855 !important;
+    color: white !important; 
+    border-radius: 30px;
+  }
+ 
+ .pay-button-container {
+  display: flex;
+  justify-content: center;
+}

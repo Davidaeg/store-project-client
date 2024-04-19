@@ -21,6 +21,16 @@ export interface Product {
   location: Location;
 }
 
+export interface ProductForList {
+  id: number;
+  code: string;
+  name: string;
+  image: string;
+  price: number;
+  quantity: number;
+  inventoryStatus: string;
+}
+
 export interface ProductDetail {
   name: string;
   price: number;

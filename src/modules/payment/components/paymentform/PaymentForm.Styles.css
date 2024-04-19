@@ -1,0 +1,63 @@
+
+.payment-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+ 
+.confirm-button{
+    background-color: #fba855;
+    border: none;
+    box-shadow: none;
+    border-radius: 30px;
+}
+
+.payment-form-container .p-card {
+    width:500px; 
+    text-align: center; 
+    box-shadow: 0px 0px 10px rgba(238, 137, 5, 0.603); 
+}
+
+.field-group {
+    display: flex; 
+    justify-content: center;
+    align-items: center; 
+    flex-wrap: wrap;
+}
+
+.custom-input {
+    width: 400px; 
+    border-color: orange;
+    box-shadow: none;
+}
+
+.p-calendar input {
+    width: 200px !important; 
+    margin: 3px !important;
+    border-color: orange !important;
+    box-shadow: none !important;
+  }
+  
+
+.security-code{
+    width: 200px; 
+    border-color: orange;
+    box-shadow: none;
+}
+
+
+@media (max-width: 480px) {
+   
+    .custom-input,
+    .p-float-label{
+      max-width: 100%;
+      width: 300px
+    }
+
+    .p-calendar,
+    .security-code {
+      max-width: 100%;
+      width: 400px
+    }
+}
+
