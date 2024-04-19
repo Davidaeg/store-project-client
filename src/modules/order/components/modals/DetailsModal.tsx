@@ -6,28 +6,31 @@ import { Column } from 'primereact/column';
 import '../modals/Modals.css';
 import { useGetDetailsByOrderId } from '../../../../shared/datasources/order/UseGetDetailsByOrderId.hook';
 
-
 interface ModalProps {
   orderId: number;
   onClose: () => void;
 }
 
-const DetailsModal = ({ orderId, onClose }: ModalProps) => {
+const DetailsModal = ({ orderId }: ModalProps) => {
   const [isVisible, setIsVisible] = useState(false);
-  const { getDetails, currentDetails, error } = useGetDetailsByOrderId(orderId); 
+  const { getDetails, currentDetails, error } = useGetDetailsByOrderId(orderId);
 
   const toggleModal = () => {
     setIsVisible(!isVisible);
-    getDetails(); 
+    getDetails();
   };
 
   return (
     <>
-      <Button label="Detalles" onClick={toggleModal} className="p-button-text modal-button" />
+      <Button
+        label="Detalles"
+        onClick={toggleModal}
+        className="p-button-text modal-button"
+      />
       <Dialog
         visible={isVisible}
         style={{ width: '50rem' }}
-        header={`Detalles del pedido ${orderId}`} 
+        header={`Detalles del pedido ${orderId}`}
         modal
         className="p-fluid"
         onHide={toggleModal}

@@ -9,18 +9,18 @@ import { useUpdateStatus } from '../../../../shared/datasources/order/UseUpdateS
 import '../modals/Modals.css';
 
 interface ModalProps {
-  orderId: number; 
+  orderId: number;
   order: Order;
-  onChangeState?: (newState: OrderStatus) => Promise<void>; 
+  onChangeState?: (newState: OrderStatus) => Promise<void>;
   updateOrders?: () => Promise<void>;
   onClose: () => void;
 }
 
-const ChangeStateModal = ({ orderId, order,  updateOrders, onClose }: ModalProps) => {
+const ChangeStateModal = ({ orderId, order, updateOrders }: ModalProps) => {
   const { updateStatus } = useUpdateStatus();
 
   const [isVisible, setIsVisible] = useState(false);
-  const [selectedState, setSelectedState] = useState<OrderStatus>(order.status); 
+  const [selectedState, setSelectedState] = useState<OrderStatus>(order.status);
   const orderStates = Object.values(OrderStatus);
   const toast = useRef<Toast>(null);
 
@@ -33,7 +33,7 @@ const ChangeStateModal = ({ orderId, order,  updateOrders, onClose }: ModalProps
       await updateStatus(orderId, { status: selectedState });
       toggleModal();
       if (updateOrders) {
-        await updateOrders(); 
+        await updateOrders();
       }
       if (toast.current) {
         toast.current.show({
@@ -57,7 +57,11 @@ const ChangeStateModal = ({ orderId, order,  updateOrders, onClose }: ModalProps
 
   return (
     <>
-      <Button label="Cambiar Estado" onClick={toggleModal} className="p-button-text modal-button" />
+      <Button
+        label="Cambiar Estado"
+        onClick={toggleModal}
+        className="p-button-text modal-button"
+      />
       <Dialog
         visible={isVisible}
         style={{ width: '32rem' }}
@@ -67,8 +71,17 @@ const ChangeStateModal = ({ orderId, order,  updateOrders, onClose }: ModalProps
         className="p-fluid"
         footer={
           <div>
-            <Button label="Cancelar" onClick={toggleModal} severity="danger" outlined />
-            <Button label="Aceptar" onClick={handleChangeState} severity="success" />
+            <Button
+              label="Cancelar"
+              onClick={toggleModal}
+              severity="danger"
+              outlined
+            />
+            <Button
+              label="Aceptar"
+              onClick={handleChangeState}
+              severity="success"
+            />
           </div>
         }
         onHide={toggleModal}
@@ -76,7 +89,7 @@ const ChangeStateModal = ({ orderId, order,  updateOrders, onClose }: ModalProps
         <Dropdown
           value={selectedState}
           options={orderStates}
-          onChange={(e) => setSelectedState(e.value as OrderStatus)} 
+          onChange={(e) => setSelectedState(e.value as OrderStatus)}
           placeholder="Seleccionar estado"
         />
       </Dialog>
@@ -86,8 +99,3 @@ const ChangeStateModal = ({ orderId, order,  updateOrders, onClose }: ModalProps
 };
 
 export default ChangeStateModal;
-
-
-
-
-
