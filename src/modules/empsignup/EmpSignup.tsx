@@ -41,7 +41,6 @@ export default function EmpSignup() {
 
     createPerson(newPerson)
       .then(() => {
-        console.log('Creando persona');
         setNewPerson(defaultPerson);
         showSuccessModal();
       })
