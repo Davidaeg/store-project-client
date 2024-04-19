@@ -13,6 +13,7 @@ import { FileUploadComponent } from './FileUploadComponent';
 import { Card } from 'primereact/card';
 import { InputNumber, InputNumberChangeEvent } from 'primereact/inputnumber';
 import { Dropdown } from 'primereact/dropdown';
+import { useShoppingCart } from '../../../../../context/shoppingCartContext';
 
 const initialProduct: CreateProduct = {
   name: '',
@@ -25,6 +26,7 @@ const initialProduct: CreateProduct = {
 
 export const ProductForm = () => {
   const { showErrorModal, showSuccessModal } = useModals();
+  const { updateProducts } = useShoppingCart();
   const { createProduct } = useCreateProduct();
   const [formData, setFormData] = useState<CreateProduct>(initialProduct);
   const [file, setFile] = useState<File>();
@@ -85,9 +87,10 @@ export const ProductForm = () => {
     try {
       const result = await createProduct(newProduct, file);
       if (result) {
+        updateProducts();
         setFormData(initialProduct);
         setFile(undefined);
-        showSuccessModal('Produco creado con exito!');
+        showSuccessModal('Producto creado con exito!');
       }
     } catch (error: any) {
       showErrorModal('Error creando el producto:', error.message);
@@ -135,7 +138,7 @@ export const ProductForm = () => {
             name="stock"
             id="stock"
             value={formData.stock}
-            onChange={handleNumberChange('EN INVENTARIO')}
+            onChange={handleNumberChange('stock')}
           />
           <label htmlFor="stock">Cantidad</label>
         </span>
