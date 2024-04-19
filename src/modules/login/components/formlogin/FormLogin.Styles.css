@@ -1,7 +1,6 @@
 .form-login {
   width: 400px;
   height: 400px;
-  position: absolute;
   bottom: 0.5;
   right: 100px;
   bottom: 2cm;
@@ -14,6 +13,8 @@
   background-size: cover;
   background-position: center;
   height: 600px;
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 .form-login .p-float-label {
@@ -66,11 +67,9 @@
 @media (max-width: 768px) {
   .form-login {
     width: 90%;
-    height: auto;
-    position: static;
     margin: 2rem auto;
   }
-  
+
   .principal-card {
     height: auto;
     padding: 2rem;
