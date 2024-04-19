@@ -42,7 +42,6 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
 
   useEffect(() => {
     getAllProducts();
-    console.log(currentPoducts);
   }, [cartItems]);
 
   function getItemQuantity(id: number) {
@@ -59,8 +58,6 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
     const currentProduct = currentPoducts.find(
       (product) => product.productId === id
     );
-
-    console.log(qty, currentProduct?.stock);
 
     if (qty > currentProduct!.stock) {
     } else {

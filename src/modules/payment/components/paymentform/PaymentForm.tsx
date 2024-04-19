@@ -31,7 +31,7 @@ const PaymentForm = () => {
 
   useEffect(() => {
     setNewOrder({
-      customerId: user!.id,
+      userId: user!.id,
       purchaseDate: currentDate,
       status: 'InPreparation',
       products: cartItems.map((item) => ({
