@@ -8,12 +8,14 @@ import { useContext } from 'react';
 import { UserType } from '../../datasources/user/user.types';
 import { useShoppingCart } from '../../../context/shoppingCartContext';
 
-
 export const ProductCard = (product: Product) => {
-  const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity } =
-   useShoppingCart();
+  const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity, getItemColor } = useShoppingCart();
   const { user } = useContext(AuthenticationContext);
   const quantity = getItemQuantity(product.productId);
+  
+  const colors = getItemColor(product.productId);
+
+  console.log("PRODUCT ID:",product.productId," colors: ",  colors);
 
   return (
     <div className="border-1 surface-border border-round m-2 text-center py-5 px-3 product-card">
@@ -23,6 +25,12 @@ export const ProductCard = (product: Product) => {
           alt={product.name}
           className="w-4 h-4 shadow-4 "
         />
+      </div>
+
+      <div className="color-circles">
+        {colors && colors.map((color, index) => (
+          <div key={index} style={{ backgroundColor: color.color, width: '20px', height: '20px', borderRadius: '50%', display: 'inline-block', margin: '5px' }}></div>
+        ))}
       </div>
 
       <div>

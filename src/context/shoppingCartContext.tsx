@@ -10,6 +10,10 @@ import {
   Product,
   ProductForList
 } from '../shared/datasources/products/products.types';
+import { useGetProductColors } from '../shared/datasources/color/color-api/useGetProductColors.hook';
+  import {
+    Color
+  } from '../shared/datasources/color/color.entity';
 
 type ShoppingCartProviderProps = {
   children: ReactNode;
@@ -30,6 +34,8 @@ type ShoppingCartContextType = {
   updateProducts: () => void;
   currentPoducts: Product[];
   cartItems: CartItem[];
+  currentColors: Color[];
+  getItemColor: (id: number) => Color[];
 };
 const ShoppingCartContext = createContext({} as ShoppingCartContextType);
 
@@ -40,10 +46,17 @@ export function useShoppingCart() {
 export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const { currentPoducts, getAllProducts } = useGetAllProducts();
+  const { currentColors, getAllColors } = useGetProductColors();
 
   useEffect(() => {
     getAllProducts();
+    //console.log(currentPoducts);
   }, [cartItems]);
+
+  function getItemColor(id: number) {
+    getAllColors(id);
+    return currentColors;
+  }
 
   function getItemQuantity(id: number) {
     return cartItems.find((item) => item.id === id)?.quantity || 0;
@@ -134,7 +147,9 @@ export function ShoppingCartProvider({ children }: ShoppingCartProviderProps) {
         getAllProductsForList,
         resetCart,
         updateProducts,
+        getItemColor,
         currentPoducts,
+        currentColors,
         cartItems
       }}
     >

@@ -1,4 +1,5 @@
 export interface Color{
+    productId: number;
     colorId: number;
     color: string;
   }

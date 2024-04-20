@@ -4,28 +4,19 @@ import { storeService } from '../../store-service/storeService';
 
 export const useGetProductColors = () => {
   const [error, setError] = useState<string>('');
-  const [currentColor, setCurrentColor] = useState<Color[]>([]);
-
+  const [currentColors, setCurrentColors] = useState<Color[]>([]);
+  
   const getAllColors = async (productId: number) => {
     try {
-      await storeService
-        .get(`/color/product/${productId}`)
-        .then((resp) => {
-            setCurrentColor(resp.data as Color[]);
-        })
-        .catch((e) => {
-          console.log(e);
-          setError(e.message);
-        });
+      const resp = await storeService.get(`/color/product/${productId}`);
+      setCurrentColors(resp.data);
     } catch (e: any) {
-      console.log(e);
       setError(e.message);
     }
   };
-
   return {
     getAllColors,
-    currentColor,
+    currentColors,
     error
   };
 };
