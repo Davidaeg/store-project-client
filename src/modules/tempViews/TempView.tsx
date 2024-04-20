@@ -17,7 +17,8 @@ const product: Product = {
   price: 100,
   image: 'image1',
   priceWithIva: 113,
-  stock: 100
+  stock: 100,
+  colors: ['red', 'blue']
 };
 
 type ProductItem = { productId: number; quantity: number };
