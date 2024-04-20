@@ -1,18 +1,34 @@
 import { Button } from 'primereact/button';
 import { Product } from '../../datasources/products/products.types';
+import { Color } from '../../datasources/color/color.entity';
 import '../../../modules/home/components/carrousel/Carrousel.styles.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 
 import { AuthenticationContext } from '../../../modules/auth/Authentication.context';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { UserType } from '../../datasources/user/user.types';
 import { useShoppingCart } from '../../../context/shoppingCartContext';
+import { useGetProductColors } from '../../datasources/color/color-api/useGetProductColors.hook';
 
 
 export const ProductCard = (product: Product) => {
   const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity } =
    useShoppingCart();
   const { user } = useContext(AuthenticationContext);
+  
+  const { getAllColors, currentColors } = useGetProductColors();
+
+  const [colors, setColors] = useState<Color[]>([]);
+
+  useEffect(() => {
+    getAllColors(product.productId);
+  }, [product.productId]);
+
+  useEffect(() => {
+    setColors(currentColors);
+    console.log(currentColors); 
+  }, [currentColors]);
+
   const quantity = getItemQuantity(product.productId);
 
   return (
@@ -23,6 +39,12 @@ export const ProductCard = (product: Product) => {
           alt={product.name}
           className="w-4 h-4 shadow-4 "
         />
+      </div>
+
+      <div className="color-circles">
+        {colors && colors.map((color, index) => (
+          <div key={index} style={{ backgroundColor: color.color, width: '20px', height: '20px', borderRadius: '50%', display: 'inline-block', margin: '5px' }}></div>
+        ))}
       </div>
 
       <div>
