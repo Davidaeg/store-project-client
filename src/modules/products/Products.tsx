@@ -34,8 +34,8 @@ export const Products = () => {
   };
 
   const handleOrderChange = (e: DropdownChangeEvent) => {
-    setOrder(e.value);
     handleOrder[e.value]();
+    setOrder(e.value);
   };
 
   const handleSearch = () => {

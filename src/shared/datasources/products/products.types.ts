@@ -19,6 +19,7 @@ export interface Product {
   price: number;
   priceWithIva: number;
   location: Location;
+  colors: string[];
 }
 
 export interface ProductForList {

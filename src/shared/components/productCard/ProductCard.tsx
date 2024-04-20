@@ -1,17 +1,16 @@
 import { Button } from 'primereact/button';
 import { Product } from '../../datasources/products/products.types';
-import '../../../modules/home/components/carrousel/Carrousel.styles.css';
-import 'primereact/resources/themes/saga-blue/theme.css';
 
 import { AuthenticationContext } from '../../../modules/auth/Authentication.context';
 import { useContext } from 'react';
 import { UserType } from '../../datasources/user/user.types';
 import { useShoppingCart } from '../../../context/shoppingCartContext';
-
+import { ColorSelector } from './ColorSelector';
+import '../../../modules/home/components/carrousel/Carrousel.styles.css';
 
 export const ProductCard = (product: Product) => {
   const { getItemQuantity, increaseCartQuantity, decreaseCartQuantity } =
-   useShoppingCart();
+    useShoppingCart();
   const { user } = useContext(AuthenticationContext);
   const quantity = getItemQuantity(product.productId);
 
@@ -24,6 +23,12 @@ export const ProductCard = (product: Product) => {
           className="w-4 h-4 shadow-4 "
         />
       </div>
+
+      {product.colors.length > 0 ? (
+        <ColorSelector colors={product.colors} />
+      ) : (
+        <ColorSelector colors={['red', 'gray', 'black']} />
+      )}
 
       <div>
         <h4 className="mb-1">{product.name}</h4>
